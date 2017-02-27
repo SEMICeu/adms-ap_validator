@@ -1,0 +1,1535 @@
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns>
+PREFIX v: <http://www.w3.org/2006/vcard/ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cpsvapit: <http://dati.gov.it/onto/cpsvapit#>
+PREFIX dcatapit: <http://dati.gov.it/onto/dcatapit#>
+PREFIX locn: <https://www.w3.org/ns/locn#>
+PREFIX dataeu: <http://data.europa.eu/m8g/>
+PREFIX cpsv: <http://purl.org/vocab/cpsv#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX spdx: <http://spdx.org/rdf/terms#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message (?s AS ?Subject) (?p AS ?Predicate) (?o AS ?Object)
+WHERE{
+GRAPH <@@@TOKEN-GRAPH@@@> {
+
+UNION
+# Rule_ID:1 dcat:Dataset - dcat:contactPoint MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Dataset.
+      FILTER(!EXISTS {?s dcat:contactPoint ?name}).
+      BIND (dcat:contactPoint AS ?p).
+      BIND ('dcat:Dataset' AS ?Class_Name).
+      BIND (1 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dcat:contactPoint is a required property for dcat:Dataset.' AS ?Rule_Description).
+      BIND (concat('The dcat:Dataset ',str(?s),' does not have a dcat:contactPoint property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:2 dcat:Dataset - dcat:contactPoint USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dcat:contactPoint ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a v:Kind}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (2 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:contactPoint should be a v:Kind.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dcat:contactPoint property of type v:Kind.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:3 dcat:Dataset - dct:description MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Dataset.
+      FILTER(!EXISTS {?s dct:description ?name}).
+      BIND (dct:description AS ?p).
+      BIND ('dcat:Dataset' AS ?Class_Name).
+      BIND (3 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:description is a required property for dcat:Dataset.' AS ?Rule_Description).
+      BIND (concat('The dcat:Dataset ',str(?s),' does not have a dct:description property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:4 dcat:Dataset - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (4 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:5 dcat:Dataset - dct:publisher MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Dataset.
+      FILTER(!EXISTS {?s dct:publisher ?name}).
+      BIND (dct:publisher AS ?p).
+      BIND ('dcat:Dataset' AS ?Class_Name).
+      BIND (5 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:publisher is a required property for dcat:Dataset.' AS ?Rule_Description).
+      BIND (concat('The dcat:Dataset ',str(?s),' does not have a dct:publisher property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:6 dcat:Dataset - dct:publisher USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:publisher ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a foaf:Agent}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (6 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:publisher should be a foaf:Agent.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dct:publisher property of type foaf:Agent.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:7 dcat:Dataset - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Dataset.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dcat:Dataset' AS ?Class_Name).
+      BIND (7 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dcat:Dataset.' AS ?Rule_Description).
+      BIND (concat('The dcat:Dataset ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:8 dcat:Dataset - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (8 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:9 dcat:Dataset - dct:type USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:type ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (9 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:type should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dct:type property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:10 dcat:Dataset - dcat:distribution USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dcat:distribution ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dcat:Distribution}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (10 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:distribution should be a dcat:Distribution.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dcat:distribution property of type dcat:Distribution.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:11 dcat:Dataset - dcat:keyword USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dcat:keyword ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dcat:keyword AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (11 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dcat:keyword property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:12 dcat:Dataset - dcat:landingPage MAX
+  {SELECT (dcat:Dataset AS ?Class_Name) (12 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dcat:landingPage has maximum cardinality of 1 for dcat:Dataset.' AS ?Rule_Description) (concat('The dcat:Dataset',str(?s),' has more than 1 dcat:landingPage.') AS ?Message) ?s (dcat:landingPage AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dcat:landingPage ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:13 dcat:Dataset - dcat:landingPage USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dcat:landingPage ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a foaf:Document}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (13 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:landingPage should be a foaf:Document.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dcat:landingPage property of type foaf:Document.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:14 dcat:Dataset - dcat:theme USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dcat:theme ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (14 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:theme should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dcat:theme property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:15 dcat:Dataset - dct:language USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:language ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:LinguisticSystem}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (15 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:language should be a dct:LinguisticSystem.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dct:language property of type dct:LinguisticSystem.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:16 dcat:Dataset - dct:relation USAGE URI
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:relation ?o.
+     FILTER(!isURI(?o)).
+     FILTER(!datatype(?o) = xsd:anyURI).
+     BIND (dct:relation AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (16 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:relation property should be a URI.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a URI.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:17 dcat:Dataset - dct:spatial USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:spatial ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:Location}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (17 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:spatial should be a dct:Location.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dct:spatial property of type dct:Location.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:18 dcat:Dataset - adms:includedAsset USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s adms:includedAsset ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dcat:Dataset}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (18 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('adms:includedAsset should be a dcat:Dataset.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a adms:includedAsset property of type dcat:Dataset.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:19 dcat:Dataset - adms:status MAX
+  {SELECT (dcat:Dataset AS ?Class_Name) (19 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('adms:status has maximum cardinality of 1 for dcat:Dataset.' AS ?Rule_Description) (concat('The dcat:Dataset',str(?s),' has more than 1 adms:status.') AS ?Message) ?s (adms:status AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s adms:status ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:20 dcat:Dataset - adms:status USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s adms:status ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (20 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('adms:status should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a adms:status property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:21 dcat:Dataset - adms:translation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s adms:translation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dcat:Dataset}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (21 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('adms:translation should be a dcat:Dataset.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a adms:translation property of type dcat:Dataset.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:22 dcat:Dataset - adms:versionNotes MAX
+  {SELECT (dcat:Dataset AS ?Class_Name) (22 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('adms:versionNotes has maximum cardinality of 1 for dcat:Dataset.' AS ?Rule_Description) (concat('The dcat:Dataset',str(?s),' has more than 1 adms:versionNotes.') AS ?Message) ?s (adms:versionNotes AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s adms:versionNotes ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:23 dcat:Dataset - adms:versionNotes USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s adms:versionNotes ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (adms:versionNotes AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (23 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The adms:versionNotes property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:24 dcat:Dataset - dct:identifier USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:identifier ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:identifier AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (24 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:identifier property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:25 dcat:Dataset - dct:issued MAX
+  {SELECT (dcat:Dataset AS ?Class_Name) (25 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:issued has maximum cardinality of 1 for dcat:Dataset.' AS ?Rule_Description) (concat('The dcat:Dataset',str(?s),' has more than 1 dct:issued.') AS ?Message) ?s (dct:issued AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:issued ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:26 dcat:Dataset - dct:issued USAGE DateTime
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:issued ?o.
+     FILTER(!datatype(?o) = xsd:dateTime).
+     BIND (dct:issued AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (26 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:issued property should be a literal of type xsd:DateTime.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a a literal of type xsd:DateTime.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:27 dcat:Dataset - dct:isVersionOf MAX
+  {SELECT (dcat:Dataset AS ?Class_Name) (27 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:isVersionOf has maximum cardinality of 1 for dcat:Dataset.' AS ?Rule_Description) (concat('The dcat:Dataset',str(?s),' has more than 1 dct:isVersionOf.') AS ?Message) ?s (dct:isVersionOf AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:isVersionOf ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:28 dcat:Dataset - dct:isVersionOf USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:isVersionOf ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dcat:Dataset}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (28 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:isVersionOf should be a dcat:Dataset.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dct:isVersionOf property of type dcat:Dataset.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:29 dcat:Dataset - dct:hasVersion USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:hasVersion ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dcat:Dataset}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (29 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:hasVersion should be a dcat:Dataset.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a dct:hasVersion property of type dcat:Dataset.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:30 dcat:Dataset - dct:modified MAX
+  {SELECT (dcat:Dataset AS ?Class_Name) (30 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:modified has maximum cardinality of 1 for dcat:Dataset.' AS ?Rule_Description) (concat('The dcat:Dataset',str(?s),' has more than 1 dct:modified.') AS ?Message) ?s (dct:modified AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:modified ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:31 dcat:Dataset - dct:modified USAGE DateTime
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s dct:modified ?o.
+     FILTER(!datatype(?o) = xsd:dateTime).
+     BIND (dct:modified AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (31 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:modified property should be a literal of type xsd:DateTime.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a a literal of type xsd:DateTime.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:32 dcat:Dataset - foaf:page USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s foaf:page ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a foaf:Document}).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (32 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('foaf:page should be a foaf:Document.' AS ?Rule_Description).
+     BIND (concat('dcat:Dataset ',str(?s),' does not have a foaf:page property of type foaf:Document.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:33 dcat:Dataset - owl:versionInfo USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s owl:versionInfo ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (owl:versionInfo AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (33 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The owl:versionInfo property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:34 dcat:Dataset - skos:altLabel USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Dataset.
+     ?s skos:altLabel ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (skos:altLabel AS ?p).
+     BIND ('dcat:Dataset' AS ?Class_Name).
+     BIND (34 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The skos:altLabel property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:35 dcat:Distribution - dcat:accessURL MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Distribution.
+      FILTER(!EXISTS {?s dcat:accessURL ?name}).
+      BIND (dcat:accessURL AS ?p).
+      BIND ('dcat:Distribution' AS ?Class_Name).
+      BIND (35 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dcat:accessURL is a required property for dcat:Distribution.' AS ?Rule_Description).
+      BIND (concat('The dcat:Distribution ',str(?s),' does not have a dcat:accessURL property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:36 dcat:Distribution - dcat:accessURL USAGE URI
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dcat:accessURL ?o.
+     FILTER(!isURI(?o)).
+     FILTER(!datatype(?o) = xsd:anyURI).
+     BIND (dcat:accessURL AS ?p).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (36 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dcat:accessURL property should be a URI.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a URI.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:37 dcat:Distribution - dct:license MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Distribution.
+      FILTER(!EXISTS {?s dct:license ?name}).
+      BIND (dct:license AS ?p).
+      BIND ('dcat:Distribution' AS ?Class_Name).
+      BIND (37 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:license is a required property for dcat:Distribution.' AS ?Rule_Description).
+      BIND (concat('The dcat:Distribution ',str(?s),' does not have a dct:license property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:38 dcat:Distribution - dct:license MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (38 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:license has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 dct:license.') AS ?Message) ?s (dct:license AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:license ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:39 dcat:Distribution - dct:license USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:license ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:LicenseDocument}).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (39 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:license should be a dct:LicenseDocument.' AS ?Rule_Description).
+     BIND (concat('dcat:Distribution ',str(?s),' does not have a dct:license property of type dct:LicenseDocument.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:40 dcat:Distribution - dct:format MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (40 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:format has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 dct:format.') AS ?Message) ?s (dct:format AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:format ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:41 dcat:Distribution - dct:format USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:format ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:MediaTypeOrExtent}).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (41 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:format should be a dct:MediaTypeOrExtent.' AS ?Rule_Description).
+     BIND (concat('dcat:Distribution ',str(?s),' does not have a dct:format property of type dct:MediaTypeOrExtent.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:42 dcat:Distribution - adms:representationTechnique MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (42 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('adms:representationTechnique has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 adms:representationTechnique.') AS ?Message) ?s (adms:representationTechnique AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s adms:representationTechnique ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:43 dcat:Distribution - adms:representationTechnique USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s adms:representationTechnique ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (43 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('adms:representationTechnique should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('dcat:Distribution ',str(?s),' does not have a adms:representationTechnique property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:44 dcat:Distribution - adms:status MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (44 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('adms:status has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 adms:status.') AS ?Message) ?s (adms:status AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s adms:status ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:45 dcat:Distribution - adms:status USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s adms:status ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (45 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('adms:status should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('dcat:Distribution ',str(?s),' does not have a adms:status property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:46 dcat:Distribution - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (46 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:47 dcat:Distribution - dct:issued MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (47 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:issued has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 dct:issued.') AS ?Message) ?s (dct:issued AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:issued ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:48 dcat:Distribution - dct:issued USAGE DateTime
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:issued ?o.
+     FILTER(!datatype(?o) = xsd:dateTime).
+     BIND (dct:issued AS ?p).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (48 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:issued property should be a literal of type xsd:DateTime.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a a literal of type xsd:DateTime.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:49 dcat:Distribution - dct:modified MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (49 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:modified has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 dct:modified.') AS ?Message) ?s (dct:modified AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:modified ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:50 dcat:Distribution - dct:modified USAGE DateTime
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:modified ?o.
+     FILTER(!datatype(?o) = xsd:dateTime).
+     BIND (dct:modified AS ?p).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (50 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:modified property should be a literal of type xsd:DateTime.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a a literal of type xsd:DateTime.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:51 dcat:Distribution - dct:publisher USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:publisher ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a foaf:Agent}).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (51 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:publisher should be a foaf:Agent.' AS ?Rule_Description).
+     BIND (concat('dcat:Distribution ',str(?s),' does not have a dct:publisher property of type foaf:Agent.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:52 dcat:Distribution - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (52 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:53 dcat:Distribution - schema:fileSize MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (53 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('schema:fileSize has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 schema:fileSize.') AS ?Message) ?s (schema:fileSize AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s schema:fileSize ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:54 dcat:Distribution - schema:fileSize USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s schema:fileSize ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (schema:fileSize AS ?p).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (54 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The schema:fileSize property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:55 dcat:Distribution - spdx:checksum MAX
+  {SELECT (dcat:Distribution AS ?Class_Name) (55 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('spdx:checksum has maximum cardinality of 1 for dcat:Distribution.' AS ?Rule_Description) (concat('The dcat:Distribution',str(?s),' has more than 1 spdx:checksum.') AS ?Message) ?s (spdx:checksum AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s spdx:checksum ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:56 dcat:Distribution - spdx:checksum USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Distribution.
+     ?s spdx:checksum ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a spdx:Checksum}).
+     BIND ('dcat:Distribution' AS ?Class_Name).
+     BIND (56 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('spdx:checksum should be a spdx:Checksum.' AS ?Rule_Description).
+     BIND (concat('dcat:Distribution ',str(?s),' does not have a spdx:checksum property of type spdx:Checksum.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:57 dcat:Catalog - dct:description MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Catalog.
+      FILTER(!EXISTS {?s dct:description ?name}).
+      BIND (dct:description AS ?p).
+      BIND ('dcat:Catalog' AS ?Class_Name).
+      BIND (57 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:description is a required property for dcat:Catalog.' AS ?Rule_Description).
+      BIND (concat('The dcat:Catalog ',str(?s),' does not have a dct:description property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:58 dcat:Catalog - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (58 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:59 dcat:Catalog - dct:publisher MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Catalog.
+      FILTER(!EXISTS {?s dct:publisher ?name}).
+      BIND (dct:publisher AS ?p).
+      BIND ('dcat:Catalog' AS ?Class_Name).
+      BIND (59 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:publisher is a required property for dcat:Catalog.' AS ?Rule_Description).
+      BIND (concat('The dcat:Catalog ',str(?s),' does not have a dct:publisher property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:60 dcat:Catalog - dct:publisher MAX
+  {SELECT (dcat:Catalog AS ?Class_Name) (60 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:publisher has maximum cardinality of 1 for dcat:Catalog.' AS ?Rule_Description) (concat('The dcat:Catalog',str(?s),' has more than 1 dct:publisher.') AS ?Message) ?s (dct:publisher AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dct:publisher ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:61 dcat:Catalog - dct:publisher USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dct:publisher ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a foaf:Agent}).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (61 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:publisher should be a foaf:Agent.' AS ?Rule_Description).
+     BIND (concat('dcat:Catalog ',str(?s),' does not have a dct:publisher property of type foaf:Agent.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:62 dcat:Catalog - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dcat:Catalog.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dcat:Catalog' AS ?Class_Name).
+      BIND (62 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dcat:Catalog.' AS ?Rule_Description).
+      BIND (concat('The dcat:Catalog ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:63 dcat:Catalog - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (63 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:64 dcat:Catalog - dcat:contactPoint USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dcat:contactPoint ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a v:Kind}).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (64 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:contactPoint should be a v:Kind.' AS ?Rule_Description).
+     BIND (concat('dcat:Catalog ',str(?s),' does not have a dcat:contactPoint property of type v:Kind.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:65 dcat:Catalog - dcat:dataset USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dcat:dataset ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dcat:Dataset}).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (65 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:dataset should be a dcat:Dataset.' AS ?Rule_Description).
+     BIND (concat('dcat:Catalog ',str(?s),' does not have a dcat:dataset property of type dcat:Dataset.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:66 dcat:Catalog - dcat:themeTaxonomy USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dcat:themeTaxonomy ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:ConceptScheme}).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (66 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:themeTaxonomy should be a skos:ConceptScheme.' AS ?Rule_Description).
+     BIND (concat('dcat:Catalog ',str(?s),' does not have a dcat:themeTaxonomy property of type skos:ConceptScheme.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:67 dcat:Catalog - dct:spatial USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dct:spatial ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:Location}).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (67 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:spatial should be a dct:Location.' AS ?Rule_Description).
+     BIND (concat('dcat:Catalog ',str(?s),' does not have a dct:spatial property of type dct:Location.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:68 dcat:Catalog - foaf:homepage MAX
+  {SELECT (dcat:Catalog AS ?Class_Name) (68 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('foaf:homepage has maximum cardinality of 1 for dcat:Catalog.' AS ?Rule_Description) (concat('The dcat:Catalog',str(?s),' has more than 1 foaf:homepage.') AS ?Message) ?s (foaf:homepage AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s foaf:homepage ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:69 dcat:Catalog - foaf:homepage USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s foaf:homepage ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a foaf:Document}).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (69 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('foaf:homepage should be a foaf:Document.' AS ?Rule_Description).
+     BIND (concat('dcat:Catalog ',str(?s),' does not have a foaf:homepage property of type foaf:Document.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:70 dcat:Catalog - dcat:keyword USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dcat:keyword ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dcat:keyword AS ?p).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (70 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dcat:keyword property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:71 dcat:Catalog - dct:issued USAGE DateTime
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dcat:Catalog.
+     ?s dct:issued ?o.
+     FILTER(!datatype(?o) = xsd:dateTime).
+     BIND (dct:issued AS ?p).
+     BIND ('dcat:Catalog' AS ?Class_Name).
+     BIND (71 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:issued property should be a literal of type xsd:DateTime.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a a literal of type xsd:DateTime.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:72 skos:Concept - skos:label USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a skos:Concept.
+     ?s skos:label ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (skos:label AS ?p).
+     BIND ('skos:Concept' AS ?Class_Name).
+     BIND (72 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The skos:label property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:73 skos:Concept - skos:inScheme USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a skos:Concept.
+     ?s skos:inScheme ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:ConceptScheme}).
+     BIND ('skos:Concept' AS ?Class_Name).
+     BIND (73 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('skos:inScheme should be a skos:ConceptScheme.' AS ?Rule_Description).
+     BIND (concat('skos:Concept ',str(?s),' does not have a skos:inScheme property of type skos:ConceptScheme.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:74 spdx:Checksum - spdx:algorithm MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a spdx:Checksum.
+      FILTER(!EXISTS {?s spdx:algorithm ?name}).
+      BIND (spdx:algorithm AS ?p).
+      BIND ('spdx:Checksum' AS ?Class_Name).
+      BIND (74 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('spdx:algorithm is a required property for spdx:Checksum.' AS ?Rule_Description).
+      BIND (concat('The spdx:Checksum ',str(?s),' does not have a spdx:algorithm property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:75 spdx:Checksum - spdx:algorithm MAX
+  {SELECT (spdx:Checksum AS ?Class_Name) (75 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('spdx:algorithm has maximum cardinality of 1 for spdx:Checksum.' AS ?Rule_Description) (concat('The spdx:Checksum',str(?s),' has more than 1 spdx:algorithm.') AS ?Message) ?s (spdx:algorithm AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a spdx:Checksum.
+     ?s spdx:algorithm ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:76 spdx:Checksum - spdx:algorithm USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a spdx:Checksum.
+     ?s spdx:algorithm ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a spdx:checksumAlgorithm_sha1}).
+     BIND ('spdx:Checksum' AS ?Class_Name).
+     BIND (76 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('spdx:algorithm should be a spdx:checksumAlgorithm_sha1.' AS ?Rule_Description).
+     BIND (concat('spdx:Checksum ',str(?s),' does not have a spdx:algorithm property of type spdx:checksumAlgorithm_sha1.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:77 spdx:Checksum - spdx:checksumValue MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a spdx:Checksum.
+      FILTER(!EXISTS {?s spdx:checksumValue ?name}).
+      BIND (spdx:checksumValue AS ?p).
+      BIND ('spdx:Checksum' AS ?Class_Name).
+      BIND (77 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('spdx:checksumValue is a required property for spdx:Checksum.' AS ?Rule_Description).
+      BIND (concat('The spdx:Checksum ',str(?s),' does not have a spdx:checksumValue property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:78 spdx:Checksum - spdx:checksumValue MAX
+  {SELECT (spdx:Checksum AS ?Class_Name) (78 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('spdx:checksumValue has maximum cardinality of 1 for spdx:Checksum.' AS ?Rule_Description) (concat('The spdx:Checksum',str(?s),' has more than 1 spdx:checksumValue.') AS ?Message) ?s (spdx:checksumValue AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a spdx:Checksum.
+     ?s spdx:checksumValue ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:79 spdx:Checksum - spdx:checksumValue USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a spdx:Checksum.
+     ?s spdx:checksumValue ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a }).
+     BIND ('spdx:Checksum' AS ?Class_Name).
+     BIND (79 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('spdx:checksumValue should be a .' AS ?Rule_Description).
+     BIND (concat('spdx:Checksum ',str(?s),' does not have a spdx:checksumValue property of type .') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:80 v:Kind - v:fn MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a v:Kind.
+      FILTER(!EXISTS {?s v:fn ?name}).
+      BIND (v:fn AS ?p).
+      BIND ('v:Kind' AS ?Class_Name).
+      BIND (80 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('v:fn is a required property for v:Kind.' AS ?Rule_Description).
+      BIND (concat('The v:Kind ',str(?s),' does not have a v:fn property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:81 v:Kind - v:fn USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a v:Kind.
+     ?s v:fn ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (v:fn AS ?p).
+     BIND ('v:Kind' AS ?Class_Name).
+     BIND (81 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The v:fn property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:82 v:Kind - v:hasEmail MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a v:Kind.
+      FILTER(!EXISTS {?s v:hasEmail ?name}).
+      BIND (v:hasEmail AS ?p).
+      BIND ('v:Kind' AS ?Class_Name).
+      BIND (82 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('v:hasEmail is a required property for v:Kind.' AS ?Rule_Description).
+      BIND (concat('The v:Kind ',str(?s),' does not have a v:hasEmail property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:83 v:Kind - v:hasEmail USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a v:Kind.
+     ?s v:hasEmail ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a v:Email}).
+     BIND ('v:Kind' AS ?Class_Name).
+     BIND (83 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('v:hasEmail should be a v:Email.' AS ?Rule_Description).
+     BIND (concat('v:Kind ',str(?s),' does not have a v:hasEmail property of type v:Email.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:84 v:Kind - v:hasAddress USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a v:Kind.
+     ?s v:hasAddress ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a v:Address}).
+     BIND ('v:Kind' AS ?Class_Name).
+     BIND (84 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('v:hasAddress should be a v:Address.' AS ?Rule_Description).
+     BIND (concat('v:Kind ',str(?s),' does not have a v:hasAddress property of type v:Address.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:85 v:Kind - v:hasTelephone USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a v:Kind.
+     ?s v:hasTelephone ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (v:hasTelephone AS ?p).
+     BIND ('v:Kind' AS ?Class_Name).
+     BIND (85 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The v:hasTelephone property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:86 v:Kind - v:hasURL USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a v:Kind.
+     ?s v:hasURL ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (v:hasURL AS ?p).
+     BIND ('v:Kind' AS ?Class_Name).
+     BIND (86 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The v:hasURL property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:87 dct:Location - rdfs:label USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:Location.
+     ?s rdfs:label ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (rdfs:label AS ?p).
+     BIND ('dct:Location' AS ?Class_Name).
+     BIND (87 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The rdfs:label property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:88 dct:LinguisticSystem - rdfs:label USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:LinguisticSystem.
+     ?s rdfs:label ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (rdfs:label AS ?p).
+     BIND ('dct:LinguisticSystem' AS ?Class_Name).
+     BIND (88 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The rdfs:label property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:89 dct:LicenseDocument - dct:type MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dct:LicenseDocument.
+      FILTER(!EXISTS {?s dct:type ?name}).
+      BIND (dct:type AS ?p).
+      BIND ('dct:LicenseDocument' AS ?Class_Name).
+      BIND (89 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:type is a required property for dct:LicenseDocument.' AS ?Rule_Description).
+      BIND (concat('The dct:LicenseDocument ',str(?s),' does not have a dct:type property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:90 dct:LicenseDocument - dct:type MAX
+  {SELECT (dct:LicenseDocument AS ?Class_Name) (90 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:type has maximum cardinality of 1 for dct:LicenseDocument.' AS ?Rule_Description) (concat('The dct:LicenseDocument',str(?s),' has more than 1 dct:type.') AS ?Message) ?s (dct:type AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dct:LicenseDocument.
+     ?s dct:type ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:91 dct:LicenseDocument - dct:type USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:LicenseDocument.
+     ?s dct:type ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('dct:LicenseDocument' AS ?Class_Name).
+     BIND (91 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:type should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('dct:LicenseDocument ',str(?s),' does not have a dct:type property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:92 dct:LicenseDocument - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:LicenseDocument.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dct:LicenseDocument' AS ?Class_Name).
+     BIND (92 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:93 dct:LicenseDocument - rdfs:label USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:LicenseDocument.
+     ?s rdfs:label ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (rdfs:label AS ?p).
+     BIND ('dct:LicenseDocument' AS ?Class_Name).
+     BIND (93 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The rdfs:label property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:94 dct:MediaTypeOrExtent - rdfs:label USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:MediaTypeOrExtent.
+     ?s rdfs:label ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (rdfs:label AS ?p).
+     BIND ('dct:MediaTypeOrExtent' AS ?Class_Name).
+     BIND (94 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The rdfs:label property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:95 foaf:Agent - foaf:name MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a foaf:Agent.
+      FILTER(!EXISTS {?s foaf:name ?name}).
+      BIND (foaf:name AS ?p).
+      BIND ('foaf:Agent' AS ?Class_Name).
+      BIND (95 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('foaf:name is a required property for foaf:Agent.' AS ?Rule_Description).
+      BIND (concat('The foaf:Agent ',str(?s),' does not have a foaf:name property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:96 foaf:Agent - foaf:name USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a foaf:Agent.
+     ?s foaf:name ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (foaf:name AS ?p).
+     BIND ('foaf:Agent' AS ?Class_Name).
+     BIND (96 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The foaf:name property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:97 foaf:Agent - dct:type USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a foaf:Agent.
+     ?s dct:type ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ('foaf:Agent' AS ?Class_Name).
+     BIND (97 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:type should be a skos:Concept.' AS ?Rule_Description).
+     BIND (concat('foaf:Agent ',str(?s),' does not have a dct:type property of type skos:Concept.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:98 skos:ConceptScheme - rdfs:label USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a skos:ConceptScheme.
+     ?s rdfs:label ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (rdfs:label AS ?p).
+     BIND ('skos:ConceptScheme' AS ?Class_Name).
+     BIND (98 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The rdfs:label property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:99 skos:ConceptScheme - skos:hasTopConcept USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a skos:ConceptScheme.
+     ?s skos:hasTopConcept ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (skos:hasTopConcept AS ?p).
+     BIND ('skos:ConceptScheme' AS ?Class_Name).
+     BIND (99 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The skos:hasTopConcept property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:100 dcat:Dataset - MANDATORY Class
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a dcat:Dataset}).
+     BIND (dcat:Dataset AS ?Class_Name).
+     BIND (100 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dcat:Dataset does not exist.' AS ?Rule_Description).
+     BIND (concat('The mandatory class dcat:Dataset does not exist.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:101 skos:Concept - MANDATORY Class
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a skos:Concept}).
+     BIND (skos:Concept AS ?Class_Name).
+     BIND (101 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('skos:Concept does not exist.' AS ?Rule_Description).
+     BIND (concat('The mandatory class skos:Concept does not exist.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:102 v:Kind - MANDATORY Class
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a v:Kind}).
+     BIND (v:Kind AS ?Class_Name).
+     BIND (102 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('v:Kind does not exist.' AS ?Rule_Description).
+     BIND (concat('The mandatory class v:Kind does not exist.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:103 foaf:Agent - MANDATORY Class
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a foaf:Agent}).
+     BIND (foaf:Agent AS ?Class_Name).
+     BIND (103 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('foaf:Agent does not exist.' AS ?Rule_Description).
+     BIND (concat('The mandatory class foaf:Agent does not exist.') AS ?Message).
+   }
+  }
+
+
+}
+}
