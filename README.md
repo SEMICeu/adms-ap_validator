@@ -1,6 +1,6 @@
-# dcat-ap_validator
+# adms-ap_validator
 
-This software performs the validation of <a href="https://joinup.ec.europa.eu/asset/dcat_application_profile/description">DCAT-AP</a> rdf files.
+This software performs the validation of <a href="https://joinup.ec.europa.eu/asset/dcat_application_profile/description">ADMS-AP</a> rdf files.
 Validation is performed via a web form which loads a file (Turtle, RDF/XML, N-triples, JSON-LD) as graph in a triplestore and it queries the triple store with a SPARQL query.
 The output of the validation can be in XML (HTML with xslt transformation), JSON, Text, CSV, TSV.
 
