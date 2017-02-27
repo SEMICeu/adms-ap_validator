@@ -1,0 +1,520 @@
+  
+UNION
+# Rule_ID:121
+  {SELECT ("PublicService" AS ?Class_Name) (121 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("dct:description has maximum cardinality of 1 for Public Service." AS ?Rule_Description) (concat("The cv:PublicService ",str(?s)," has more than 1 dct:description.") AS ?Message) ?s (dct:description AS ?p) (sample(?desc) AS ?o)
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:description ?desc.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:122
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dcat:keyword ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dcat:keyword AS ?p).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (122 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("The dcat:keyword property should be a literal." AS ?Rule_Description).
+     BIND (concat("The property ",str(?p)," is not a literal.") AS ?Message).
+   }
+  }  
+
+UNION
+# Rule_ID:123
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:language ?o.
+     ?o ?pred ?lan.
+     FILTER(!EXISTS {?o a dct:LinguisticSystem}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (123 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:language should be a dct:LinguisticSystem." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:language property of type dct:LinguisticSystem.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:124
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:processingTime ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (cv:processingTime AS ?p).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (124 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("The cv:processingTime property should be a literal." AS ?Rule_Description).
+     BIND (concat("The property ",str(?p)," is not a literal.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:125
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:sector ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (125 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:sector should be a skos:Concept." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:sector property of type skos:Concept.") AS ?Message).
+   }
+  }  
+
+UNION
+# Rule_ID:126
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:type ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a skos:Concept}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (126 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:type should be a skos:Concept." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:type property of type skos:Concept.") AS ?Message).
+   }
+  }  
+
+UNION
+# Rule_ID:127
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:isPartOf ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:BusinessEvent}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (127 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:isPartOf should be a cv:BusinessEvent." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:isPartOf property of type cv:BusinessEvent.") AS ?Message).
+   }
+  }
+  
+UNION
+# Rule_ID:128
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasChannel ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:Channel}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (128 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasChannel should be a cv:Channel." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:hasChannel property of type cv:Channel.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:129
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasCost ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:Cost}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (129 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasCost should be a cv:Cost." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:hasCost property of type cv:Cost.") AS ?Message).
+   }
+  }  
+
+UNION
+# Rule_ID:130
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:physicallyAvailableAt ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:Location}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (130 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:physicallyAvailableAt should be a dct:Location." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:physicallyAvailableAt property of type dct:Location.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:131
+  {SELECT ("PublicService" AS ?Class_Name) (131 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("cv:physicallyAvailableAt has maximum cardinality of 1 for Public Service." AS ?Rule_Description) (concat("The cv:PublicService ",str(?s)," has more than 1 cv:physicallyAvailableAt.") AS ?Message) ?s (cv:physicallyAvailableAt AS ?p) (sample(?phy) AS ?o)
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:physicallyAvailableAt ?phy.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:132
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:spatial ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:Location}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (132 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:spatial should be a dct:Location." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:spatial property of type dct:Location.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:133
+  {SELECT ("PublicService" AS ?Class_Name) (133 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("dct:spatial has maximum cardinality of 1 for Public Service." AS ?Rule_Description) (concat("The cv:PublicService ",str(?s)," has more than 1 dct:spatial.") AS ?Message) ?s (dct:spatial AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:spatial ?spa.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:134
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:requires ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:PublicService}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (134 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:requires should be a cv:PublicService." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:requires property of type cv:PublicService.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:135
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:relation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:PublicService}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (135 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:relation should be a cv:PublicService." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:relation property of type cv:PublicService.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:136
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+   WHERE {
+     ?s a cv:PublicService.
+     FILTER(!EXISTS {?s cv:hasInput ?inp}).
+     BIND (cv:hasInput AS ?p).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (136 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasInput is a required property for Public Service." AS ?Rule_Description).
+     BIND (concat("The cv:PublicService ",str(?s)," does not have a cv:hasInput property.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:137
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasInput ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:Input}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (137 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasInput should be a cv:Input." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:hasInput property of type cv:Input.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:138
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:produces ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:Output}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (138 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:produces should be a cv:Output." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:produces property of type cv:Output.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:139
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:follows ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:Rule}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (139 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:follows should be a cv:Rule." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:follows property of type cv:Rule.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:140
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s dct:temporal ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dct:PeriodOfTime}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (140 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:temporal should be a dct:PeriodOfTime." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a dct:temporal property of type dct:PeriodOfTime.") AS ?Message).
+   }
+  }  
+
+UNION
+# Rule_ID:141
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasFormalFramework ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:FormalFramework}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (141 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasFormalFramework should be a cv:FormalFramework." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:hasFormalFramework property of type cv:FormalFramework.") AS ?Message).
+   }
+  }  
+
+UNION
+# Rule_ID:142
+  {SELECT ("PublicService" AS ?Class_Name) (142 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("cv:hasFormalFramework has maximum cardinality of 1 for Public Service." AS ?Rule_Description) (concat("The cv:PublicService ",str(?s)," has more than 1 cv:hasFormalFramework.") AS ?Message) ?s (cv:hasFormalFramework AS ?p) (sample(?ff) AS ?o)
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasFormalFramework ?ff.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:143
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+   WHERE {
+     ?s a cv:PublicService.
+     FILTER(!EXISTS {?s cv:hasCompetentAuthority ?ca}).
+     BIND (cv:hasCompetentAuthority AS ?p).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (143 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasCompetentAuthority is a required property for Public Service." AS ?Rule_Description).
+     BIND (concat("The cv:PublicService ",str(?s)," does not have a cv:hasCompetentAuthority property.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:144
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasCompetentAuthority ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cv:PublicOrganisation}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (144 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:hasCompetentAuthority should be a cv:PublicOrganisation." AS ?Rule_Description).
+     BIND (concat("cv:PublicService ",str(?s)," does not have a cv:hasCompetentAuthority property of type cv:PublicOrganisation.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:145
+  {SELECT ("PublicService" AS ?Class_Name) (145 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("cv:hasCompetentAuthority has maximum cardinality of 1 for Public Service." AS ?Rule_Description) (concat("The cv:PublicService ",str(?s)," has more than 1 cv:hasCompetentAuthority.") AS ?Message) ?s (cv:hasCompetentAuthority AS ?p) (sample(?ca) AS ?o)
+   WHERE {
+     ?s a cv:PublicService.
+     ?s cv:hasCompetentAuthority ?ca.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:146
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+   WHERE {
+     ?s a cv:Rule.
+     FILTER(!EXISTS {?s dct:title ?name}).
+     BIND (dct:title AS ?p).
+     BIND ("Rule" AS ?Class_Name).
+     BIND (146 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:title is a required property for Rule." AS ?Rule_Description).
+     BIND (concat("The cv:Rule ",str(?s)," does not have a dct:title property.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:147
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cv:Rule.
+	 ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ("Rule" AS ?Class_Name).
+     BIND (147 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("The dct:title property should be a literal." AS ?Rule_Description).
+     BIND (concat("The property ",str(?p)," is not a literal.") AS ?Message).
+   }
+  }  
+  
+UNION
+# Rule_ID:148
+  {SELECT ("Rule" AS ?Class_Name) (148 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("dct:title has maximum cardinality of 1 for Rule." AS ?Rule_Description) (concat("The cv:Rule ",str(?s)," has more than 1 dct:title.") AS ?Message) ?s (dct:title AS ?p) (sample(?name) AS ?o)
+   WHERE {
+     ?s a cv:Rule.
+     ?s dct:title ?name.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:149
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+   WHERE {
+     ?s a cv:Rule.
+     FILTER(!EXISTS {?s dct:description ?name}).
+     BIND (dct:description AS ?p).
+     BIND ("Rule" AS ?Class_Name).
+     BIND (149 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:description is a required property for Rule." AS ?Rule_Description).
+     BIND (concat("The cv:Rule ",str(?s)," does not have a dct:description property.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:150
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cv:Rule.
+	 ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ("Rule" AS ?Class_Name).
+     BIND (150 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("The dct:description property should be a literal." AS ?Rule_Description).
+     BIND (concat("The property ",str(?p)," is not a literal.") AS ?Message).
+   }
+  }  
+  
+UNION
+# Rule_ID:151
+  {SELECT ("Rule" AS ?Class_Name) (151 AS ?Rule_ID) ("error" AS ?Rule_Severity) ("dct:description has maximum cardinality of 1 for Rule." AS ?Rule_Description) (concat("The cv:Rule ",str(?s)," has more than 1 dct:description.") AS ?Message) ?s (dct:description AS ?p) (sample(?desc) AS ?o)
+   WHERE {
+     ?s a cv:Rule.
+     ?s dct:description ?desc.
+   } GROUP BY ?s 
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:152
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o 
+   WHERE {
+     ?s a cv:Rule.
+     ?s dct:language ?o.
+     ?o ?pred ?lan.
+     FILTER(!EXISTS {?o a dct:LinguisticSystem}).
+     BIND ("Rule" AS ?Class_Name).
+     BIND (152 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("dct:language should be a dct:LinguisticSystem." AS ?Rule_Description).
+     BIND (concat("cv:Rule ",str(?s)," does not have a dct:language property of type dct:LinguisticSystem.") AS ?Message).
+   }
+  }  
+
+  
+UNION
+# Rule_ID:153
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a cv:BusinessEvent}).
+     BIND ("BusinessEvent" AS ?Class_Name).
+     BIND (153 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:BusinessEvent does not exist." AS ?Rule_Description).
+     BIND (concat("The mandatory class cv:BusinessEvent does not exist.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:154
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a cv:PublicService}).
+     BIND ("PublicService" AS ?Class_Name).
+     BIND (154 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:PublicService does not exist." AS ?Rule_Description).
+     BIND (concat("The mandatory class cv:PublicService does not exist.") AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:155
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a cv:Input}).
+     BIND ("Input" AS ?Class_Name).
+     BIND (155 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("cv:Input does not exist." AS ?Rule_Description).
+     BIND (concat("The mandatory class cv:Input does not exist.") AS ?Message).
+   }
+  }
+  
+UNION
+# Rule_ID:156
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a org:FormalOrganization}).
+     BIND ("FormalOrganization" AS ?Class_Name).
+     BIND (156 AS ?Rule_ID).
+     BIND ("error" AS ?Rule_Severity).
+     BIND ("org:FormalOrganization does not exist." AS ?Rule_Description).
+     BIND (concat("The mandatory class org:FormalOrganization does not exist.") AS ?Message).
+   }
+  }
+ 

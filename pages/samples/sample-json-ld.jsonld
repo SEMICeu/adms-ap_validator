@@ -1,0 +1,456 @@
+{
+  "@context": {
+    "adms": "http://www.w3.org/ns/adms#",
+    "cv": "http://data.europa.eu/cv/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "frbr": "http://purl.org/vocab/frbr/core#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "org": "http://www.w3.org/ns/org#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "vann": "http://purl.org/vocab/vann/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/tpede",
+      "@type": "cv:Input",
+      "dcterms:title": "TPEDE form duly filled in",
+      "foaf:page": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-22",
+      "@type": "cv:Cost",
+      "cv:currency": {
+        "@id": "http://publications.europa.eu/resource/authority/currency/EUR"
+      },
+      "cv:isDefinedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "cv:monetary_value": "324.14",
+      "dcterms:description": "Fee to pay when the traduction is only delivered in paper form, until 22 pages"
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Fax",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Fax"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#location/Spain",
+      "@type": "dcterms:Location"
+    },
+    {
+      "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Fax",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Fax"
+      }
+    },
+    {
+      "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Email",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/E-mail"
+      }
+    },
+    {
+      "@id": "http://publications.europa.eu/resource/authority/country/ESP",
+      "@type": "dcterms:Location",
+      "locn:GeographicName": "Spain",
+      "locn:address": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Address/OEPM"
+      }
+    },
+    {
+      "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium",
+      "@type": [
+        "org:FormalOrganization",
+        "foaf:Agent",
+        "cv:PublicOrganisation"
+      ],
+      "cv:hasRole": {
+        "@id": "http://europa.eu/youreurope/businessOntology#vat-customs/buy-sell/VAT-Return"
+      },
+      "dcterms:title": "Bureau Central de TVA",
+      "locn:address": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Address"
+      }
+    },
+    {
+      "@id": "http://europa.eu/youreurope/PublicService/European-Patent-National-Validation/ES",
+      "@type": "cv:PublicService",
+      "cv:follows": {
+        "@id": "http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ar2.html"
+      },
+      "cv:hasChannel": [
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Email"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Telephone"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Homepage"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Fax"
+        }
+      ],
+      "cv:hasCompetentAuthority": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "cv:hasCost": [
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-22"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-more22"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-22"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-more-22"
+        }
+      ],
+      "cv:hasFormalFramework": {
+        "@id": "http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ma1.html"
+      },
+      "cv:hasInput": [
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/tpede"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/proof-of-payment"
+        },
+        {
+          "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/patent-translation"
+        }
+      ],
+      "cv:isPartOf": {
+        "@id": "http://europa.eu/youreurope/businessOntology#start-grow"
+      },
+      "cv:physicallyAvailableAt": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#location/Spain"
+      },
+      "dcterms:description": "You can apply for a national patent at a patent office in an EU country or for a European patent through the European Patent Office. However, a European patent needs to be validated by the national patent office in each country where protection is required. Depending on the country's law, you may have to provide translations or pay fees by a certain date.",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/SPA"
+      },
+      "dcterms:spatial": {
+        "@id": "http://publications.europa.eu/resource/authority/country/ESP"
+      },
+      "dcterms:title": "Validate a European patent when applying for a Spanish patent",
+      "dcterms:type": {
+        "@id": "http://europa.eu/youreurope/businessOntology#start-grow/intellectual-property-rights/European-Patent-National-Validation"
+      }
+    },
+    {
+      "@id": "http://europa.eu/youreurope/businessOntology#vat-customs/buy-sell/VAT-Return",
+      "@type": "cv:PublicService",
+      "cv:follows": [
+        {
+          "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/9-1"
+        },
+        {
+          "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/8"
+        },
+        {
+          "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/11"
+        }
+      ],
+      "cv:hasChannel": [
+        {
+          "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Fax"
+        },
+        {
+          "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Telephone"
+        },
+        {
+          "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Email"
+        }
+      ],
+      "cv:hasCompetentAuthority": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"
+      },
+      "cv:hasInput": {
+        "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2009:314:0050:0059:en:PDF#refund-claim"
+      },
+      "cv:isPartOf": {
+        "@id": "http://europa.eu/youreurope/businessOntology#vat-customs"
+      },
+      "cv:physicallyAvailableAt": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Location"
+      },
+      "dcterms:description": "If you are charged VAT on business activities in an EU country where you are not established, you may be entitled to have it refunded by the authorities in that country.",
+      "dcterms:language": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/language/NLD"
+        },
+        {
+          "@id": "http://publications.europa.eu/resource/authority/language/FRA"
+        }
+      ],
+      "dcterms:title": "VAT refund in Belgium"
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Homepage",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Homepage"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Telephone",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Telephone"
+      }
+    },
+    {
+      "@id": "http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ar2.html",
+      "@type": "cv:Rule",
+      "cv:implements": {
+        "@id": "http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ma1.html"
+      },
+      "dcterms:description": "Under Article 2(2) EPC, a European patent shall, in each of the contracting states for which it is granted, have the effect of and be subject to the same conditions as a national patent granted by that state, unless otherwise provided in the EPC.",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Article 2 - European Patent"
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/proof-of-payment",
+      "@type": "cv:Input",
+      "dcterms:title": "Proof of payment",
+      "foaf:page": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      }
+    },
+    {
+      "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF",
+      "@type": "cv:FormalFramework",
+      "dcterms:description": "COUNCIL DIRECTIVE 2008/9/EC\nof 12 February 2008\nlaying down detailed rules for the refund of value added tax, provided for in Directive 2006/112/EC, to taxable persons not established in the Member State of refund but established in another Member State",
+      "eli:id_local": "Directive 2008/9/EC",
+      "eli:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      }
+    },
+    {
+      "@id": "http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ma1.html",
+      "@type": "cv:FormalFramework",
+      "dcterms:description": "Convention on the Grant of European Patents\n(European Patent Convention)\nof 5 October 1973 \nas revised by the Act revising Article 63 EPC of 17 December 1991 and the Act revising the EPC of 29 November 2000",
+      "eli:id_local": "European Patent Convention",
+      "eli:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Email",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/E-mail"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/patent-translation",
+      "@type": "cv:Input",
+      "dcterms:title": "Translation of the european patent",
+      "foaf:page": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      }
+    },
+    {
+      "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Address",
+      "@type": "locn:Address",
+      "locn:adminUnitL1": "http://publications.europa.eu/resource/authority/country/BEL",
+      "locn:adminUnitL2": "Brussels",
+      "locn:fullAddress": "Bvd Jardin botanique 50 (étage 18 R boîte 3626) 1000 Bruxelles - BELGIQUE ",
+      "locn:locatorDesignator": "50",
+      "locn:postCode": "1000",
+      "locn:postName": "Brussels"
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-more-22",
+      "@type": "cv:Cost",
+      "cv:currency": {
+        "@id": "http://publications.europa.eu/resource/authority/currency/EUR"
+      },
+      "cv:isDefinedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "cv:monetary_value": "13.03",
+      "dcterms:description": "Fee to pay per page when the traduction is only delivered in paper form, from the 23th page"
+    },
+    {
+      "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/11",
+      "@type": "cv:Rule",
+      "cv:implements": {
+        "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"
+      },
+      "dcterms:description": "The application should provide a description of the applicant's business activity",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Article 11"
+    },
+    {
+      "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2009:314:0050:0059:en:PDF#refund-claim",
+      "@type": "cv:Input",
+      "dcterms:description": "Claim to applicate the VAT refund. The claim is only considered submitted when the information in Articles 8, 9, and 11 are complete",
+      "dcterms:title": "Refund claim"
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Address/OEPM",
+      "@type": "locn:Address",
+      "locn:addressArea": "Madrid",
+      "locn:adminUnitL1": "http://publications.europa.eu/resource/authority/country/ESP",
+      "locn:adminUnitL2": "Madrid",
+      "locn:fullAddress": "Paseo de la Castellana, n° 75, 28071 Madrid",
+      "locn:locatorDesignator": "75",
+      "locn:postCode": "28071",
+      "locn:postName": "Madrid"
+    },
+    {
+      "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Telephone",
+      "@type": "cv:Channel",
+      "cv:ownedBy": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"
+      },
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Telephone"
+      }
+    },
+    {
+      "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Location",
+      "@type": "dcterms:Location",
+      "locn:address": {
+        "@id": "http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Address"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-more22",
+      "@type": "cv:Cost",
+      "cv:currency": {
+        "@id": "http://publications.europa.eu/resource/authority/currency/EUR"
+      },
+      "cv:isDefinedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "cv:monetary_value": "11.08",
+      "dcterms:description": "Fee to pay when the traduction is delivered online, in paper form and in CD, from the 23th page"
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-22",
+      "@type": "cv:Cost",
+      "cv:currency": {
+        "@id": "http://publications.europa.eu/resource/authority/currency/EUR"
+      },
+      "cv:isDefinedBy": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"
+      },
+      "cv:monetary_value": "275.52",
+      "dcterms:description": "Fee to pay when the traduction is delivered online, in paper form and in CD, until 22 pages"
+    },
+    {
+      "@id": "http://europa.eu/youreurope/businessOntology#vat-customs",
+      "@type": "cv:BusinessEvent",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Taxes & customs",
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Doing+business"
+      }
+    },
+    {
+      "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html",
+      "@type": [
+        "org:FormalOrganization",
+        "foaf:Agent",
+        "cv:PublicOrganisation"
+      ],
+      "cv:hasRole": {
+        "@id": "http://europa.eu/youreurope/businessOntology#start-grow/intellectual-property-rights/European-Patent-National-Validation"
+      },
+      "dcterms:title": "Spanish patent and trademark office ",
+      "locn:address": {
+        "@id": "http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Address/OEPM"
+      }
+    },
+    {
+      "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/8",
+      "@type": "cv:Rule",
+      "cv:implements": {
+        "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"
+      },
+      "dcterms:description": "Information specified that the application shall contain.",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Article 8"
+    },
+    {
+      "@id": "http://europa.eu/youreurope/businessOntology#start-grow",
+      "@type": "cv:BusinessEvent",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Start & grow",
+      "dcterms:type": {
+        "@id": "http://127.0.0.1:3333/Starting+a+business"
+      }
+    },
+    {
+      "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/9-2",
+      "@type": "cv:Rule",
+      "cv:implements": {
+        "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"
+      },
+      "dcterms:description": "Some Member States also require you to use extra sub-codes for each type of good/service. Belgium is one of them",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Article 9 (2)"
+    },
+    {
+      "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/9-1",
+      "@type": "cv:Rule",
+      "cv:implements": {
+        "@id": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"
+      },
+      "dcterms:description": "When submitting a refund claim, you must enter certain standard codes to describe the type of goods/services you paid the VAT on",
+      "dcterms:language": {
+        "@id": "http://publications.europa.eu/resource/authority/language/ENG"
+      },
+      "dcterms:title": "Article 9 (1)"
+    }
+  ]
+}

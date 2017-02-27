@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<title>CPSV-AP Validator Service</title>
+		<meta name="description" content="CPSV-AP Validator Service" />
+		<link rel="stylesheet" type="text/css" href="css/concat/cpsv.css">
+	</head>
+	<body>
+		<div class="container">
+			<header class="banner">
+				<a id="logobanner" href="#"><img src="images/CPSV-AP_logo.png" width="70" height="70" alt="CPSV-AP logo" /><h1>CPSV-AP Validator</h1></a>
+			</header>
+			<div class="body">
+				<p>This service checks one or more software description metadata files for integrity and consistency against the <a href="https://joinup.ec.europa.eu/asset/cpsv-ap/description">CPSV-AP</a> specification.</p>
+				<div id="tabs">
+					<ul>
+						<li><a href="#tab-1">Validate by <span>File Upload</span></a></li>
+						<li><a href="#tab-2">Validate by <span>URI</span></a></li>
+						<li><a href="#tab-3">Validate by <span>Direct Input</span></a></li>
+					</ul>
+					<div id="tab-1">
+						<form id="tab1form" class="form" action="#" method="POST" accept-charset="UTF-8" onsubmit="return onForm1Submit(this)">
+							<label for="metadatafile">RDF file(s):<span class="small">Select your RDF file (Turtle/XML) with metadata and taxonomies</span></label>
+							<input id="metadatafile" class="metadatafile" type="file" name="metadatafile" multiple="multiple">
+                            <span id="metadatafileerror" class="errormessage"></span>
+							<div id="tab1options">
+								<div class="more"><img class="toggleicon" src="images/arrow-closed.png" alt="Hide Options"/> <span class="menu">More Options</span></div>
+								<div class="options">
+									<label for="tab1output">Output:<span class="small">Select the output format</span></label>
+									<select id="tab1output" name="output"><option value="xml">XML</option><option value="json">JSON</option><option value="text">Text</option><option value="csv">CSV</option><option value="tsv">TSV</option></select>
+									<br/><!--Input syntax:<br/><input type="radio" type="hidden" name="languageSyntax" value="SPARQL" checked="checked"/>SPARQL<input type="hidden" name="languageSyntax" value="ARQ"/> -->
+									<label for="tab1endpoint">SPARQL endpoint:<span class="small">Set the SPARQL endpoint</span></label>
+									<input id="tab1endpoint" name="endpoint" value="" size="40" />
+                                    <span id="tab1endpointerror" class="errormessage"></span>
+									<br/><br/><!--<label>XSLT style sheet:<span class="small">Stylesheet used to display results</span></label> --><input type="hidden" name="xslt-uri" value="http://cpsv-ap.semic.eu/cpsv-ap_validator/xml-to-html-cpsv-ap.xsl" />
+                                                                        <input type="hidden" name="default-graph-uri" value="" />
+                                                                        <input type="hidden" name="named-graph-uri" value="" />									
+                                                                        <label for="tab1validationquery">SPARQL query:<span class="small">SPARQL query that encodes the validation rules.</span></label>
+									<textarea class="validationquery" id="tab1validationquery" name="query" cols="80" rows="16"></textarea>
+                                    <span id="editortab1error" class="errormessage"></span>
+								</div>
+								<div class="fancy-line"></div>
+								<label class="hiddenlabel" for="tab1validate">validate button</label>
+								<button type="submit" id="tab1validate">Validate</button>
+							</div>
+						</form>
+					</div>
+					<div id="tab-2">
+						<form id="tab2form" class="form" action="#" method="POST" accept-charset="UTF-8" onsubmit="return onForm2Submit(this)">
+							<label for="address">Address:<span class="small">Enter the address of your RDF file (Turtle/XML)</span></label>
+							<input id="address" class="address" type="text" name="address" size="45">
+                            <span id="addresserror" class="errormessage"></span>
+							<div id="tab2options">
+								<div class="more"><img class="toggleicon" src="images/arrow-closed.png" alt="Hide Options"/> <span class="menu">More Options</span></div>
+								<div class="options">
+									<label for="tab2output">Output:<span class="small">Select the output format</span></label>
+									<select id="tab2output" name="output"><option value="xml">XML</option><option value="json">JSON</option><option value="text">Text</option><option value="csv">CSV</option><option value="tsv">TSV</option></select>
+									<br/><!--Input syntax:<br/><input type="radio" type="hidden" name="languageSyntax" value="SPARQL" checked="checked"/>SPARQL<input type="hidden" name="languageSyntax" value="ARQ"/> -->
+									<label for="tab2endpoint">SPARQL endpoint:<span class="small">Set the SPARQL endpoint</span></label>
+									<input id="tab2endpoint" name="endpoint" value="" size="40" />
+                                    <span id="tab2endpointerror" class="errormessage"></span>
+									<br/><br/><!--<label>XSLT style sheet:<span class="small">Stylesheet used to display results</span></label> --><input type="hidden" name="xslt-uri" value="http://cpsv-ap.semic.eu/cpsv-ap_validator/xml-to-html-cpsv-ap.xsl" />
+                                                                        <input type="hidden" name="default-graph-uri" value="" />
+                                                                        <input type="hidden" name="named-graph-uri" value="" />									
+                                                                        <label for="tab2validationquery">SPARQL query:<span class="small">SPARQL query that encodes the validation rules.</span></label>
+									<textarea class="validationquery" id="tab2validationquery" name="query" cols="80" rows="16"></textarea>
+                                    <span id="editortab2error" class="errormessage"></span>
+								</div>
+								<div class="fancy-line"></div>
+								<label class="hiddenlabel" for="tab2validate">validate button</label>
+								<button type="submit" id="tab2validate">Validate</button>
+							</div>
+						</form>
+					</div>
+					<div id="tab-3">
+						<form id="tab3form" class="form" action="#" method="POST" accept-charset="UTF-8" onsubmit="return onForm3Submit(this)">
+							<label for="directinput">Direct input:<span class="small">Enter your RDF markup (Turtle/XML/N-triples/JSON-LD)</span><br/><span class="small">When editing, press <u>F11</u> to enter in full screen mode, press <u>ESC</u> to go back in normal mode.</span></label> 
+							<div class="editorfloatleft">
+								<textarea id="directinput" name="directinput" cols="80" rows="16"></textarea>
+							</div>
+                            <span id="editorerror" class="errormessage"></span>
+							<div class="loadsamples">
+								<div class="buttonsample" id="loadsample1">&lt;- Load <span>Turtle</span> sample</div>
+								<div class="buttonsample" id="loadsample2">&lt;- Load <span>XML</span> sample</div>
+								<!--<div class="buttonsample" id="loadsample3">&lt;- Load <span>N-triples</span> sample</div>
+								<div class="buttonsample" id="loadsample4">&lt;- Load <span>JSON-LD</span> sample</div>-->
+							</div>
+							<div id="tab3options">
+								<div class="more"><img class="toggleicon" src="images/arrow-closed.png" alt="Hide Options"/> <span class="menu">More Options</span></div>
+								<div class="options">
+									<label for="tab3output">Output:<span class="small">Select the output format</span></label>
+									<select id="tab3output" name="output"><option value="xml">XML</option><option value="json">JSON</option><option value="text">Text</option><option value="csv">CSV</option><option value="tsv">TSV</option></select>
+									<br/><!--Input syntax:<br/><input type="radio" type="hidden" name="languageSyntax" value="SPARQL" checked="checked"/>SPARQL<input type="hidden" name="languageSyntax" value="ARQ"/> -->
+									<label for="tab3endpoint">SPARQL endpoint:<span class="small">Set the SPARQL endpoint</span></label>
+									<input id="tab3endpoint" name="endpoint" value="" size="40" />
+                                    <span id="tab3endpointerror" class="errormessage"></span>
+									<br/><br/><!--<label>XSLT style sheet:<span class="small">Stylesheet used to display results</span></label> --><input type="hidden" name="xslt-uri" value="http://cpsv-ap.semic.eu/cpsv-ap_validator/xml-to-html-cpsv-ap.xsl" />
+									<input type="hidden" name="default-graph-uri" value="" />
+									<input type="hidden" name="named-graph-uri" value="" />
+									<label for="tab3validationquery">SPARQL query:<span class="small">SPARQL query that encodes the validation rules.</span></label>
+									<textarea class="validationquery" id="tab3validationquery" name="query" cols="80" rows="16"></textarea>
+                                    <span id="editortab3error" class="errormessage"></span>
+								</div>
+								<div class="fancy-line"></div>
+								<label class="hiddenlabel" for="tab3validate">validate button</label>
+								<button type="submit" id="tab3validate">Validate</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<a href="http://ec.europa.eu/"><img src="images/logo_commission.png" width="172" height="119" alt="European Commission"/></a>
+				<p>
+					<small>CPSV-AP validator: Copyright ©  European Union 2016. This validator is published under the <a href="https://joinup.ec.europa.eu/community/eupl/home">EUPL v1.1 licence</a><br/>
+					This project is funded by <a href="http://ec.europa.eu/isa/actions/01-trusted-information-exchange/1-3action_en.htm">ISA Action 1.3</a> under framework contract DI/07171 Lot 2 (Specific Contract 270).<br/>
+					Authors: Ana Fernández de Soria (based on the work done on the DCAT-AP validator).<br/>
+					Apache Fuseki is a copyright © 2011-2015 of the Apache Software Foundation, licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.<br/>
+					</small>
+				</p>
+			</footer>
+		</div>
+		<script type="text/javascript" charset="utf-8" src="js/DataTables-1.10.7/media/js/jquery.js"></script>
+        <script type="text/javascript" src="js/js-cookie/js-cookie.js"></script>
+
+        <script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/codemirror/codemirror-compressed.js"></script>
+        <script type="text/javascript" src="js/cpsv-ap/cpsv-ap_validator.js"></script>
+        
+             
+		<!-- <script type="text/javascript" src="js/concat/cpsv.js"></script> -->
+	</body>
+</html>

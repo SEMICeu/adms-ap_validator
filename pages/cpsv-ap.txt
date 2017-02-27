@@ -1,0 +1,1915 @@
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cpsvapit: <http://dati.gov.it/onto/cpsvapit#>
+PREFIX dcatapit: <http://dati.gov.it/onto/dcatapit#>
+PREFIX locn: <https://www.w3.org/ns/locn#>
+PREFIX dataeu: <http://data.europa.eu/m8g/>
+PREFIX cpsv: <http://purl.org/vocab/cpsv#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message (?s AS ?Subject) (?p AS ?Predicate) (?o AS ?Object)
+WHERE{
+GRAPH <@@@TOKEN-GRAPH@@@> {
+
+UNION
+# Rule_ID:1 dct:Agent - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dct:Agent.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dct:Agent' AS ?Class_Name).
+      BIND (1 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dct:Agent.' AS ?Rule_Description).
+      BIND (concat('The dct:Agent ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:2 dct:Agent - dct:title MAX
+  {SELECT (dct:Agent AS ?Class_Name) (2 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dct:Agent.' AS ?Rule_Description) (concat('The dct:Agent',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dct:Agent.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:3 dct:Agent - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:Agent.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dct:Agent' AS ?Class_Name).
+     BIND (3 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:4 dct:Agent - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dct:Agent.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dct:Agent' AS ?Class_Name).
+      BIND (4 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dct:Agent.' AS ?Rule_Description).
+      BIND (concat('The dct:Agent ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:5 dct:Agent - dct:identifier MAX
+  {SELECT (dct:Agent AS ?Class_Name) (5 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dct:Agent.' AS ?Rule_Description) (concat('The dct:Agent',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dct:Agent.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:6 dct:Agent - dataeu:playsRole USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:Agent.
+     ?s dataeu:playsRole ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:participation}).
+     BIND ('dct:Agent' AS ?Class_Name).
+     BIND (6 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:playsRole should be a dataeu:participation.' AS ?Rule_Description).
+     BIND (concat('dct:Agent ',str(?s),' does not have a dataeu:playsRole property of type dataeu:participation.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:7 dct:Agent - dataeu:hasAddress MAX
+  {SELECT (dct:Agent AS ?Class_Name) (7 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:hasAddress has maximum cardinality of 1 for dct:Agent.' AS ?Rule_Description) (concat('The dct:Agent',str(?s),' has more than 1 dataeu:hasAddress.') AS ?Message) ?s (dataeu:hasAddress AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dct:Agent.
+     ?s dataeu:hasAddress ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:8 dct:Agent - dataeu:hasAddress USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dct:Agent.
+     ?s dataeu:hasAddress ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a locn:Address}).
+     BIND ('dct:Agent' AS ?Class_Name).
+     BIND (8 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasAddress should be a locn:Address.' AS ?Rule_Description).
+     BIND (concat('dct:Agent ',str(?s),' does not have a dataeu:hasAddress property of type locn:Address.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:9 dataeu:Event - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Event.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:Event' AS ?Class_Name).
+      BIND (9 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:Event.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Event ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:10 dataeu:Event - dct:identifier MAX
+  {SELECT (dataeu:Event AS ?Class_Name) (10 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:Event.' AS ?Rule_Description) (concat('The dataeu:Event',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Event.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:11 dataeu:Event - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Event.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dataeu:Event' AS ?Class_Name).
+      BIND (11 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dataeu:Event.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Event ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:12 dataeu:Event - dct:title MAX
+  {SELECT (dataeu:Event AS ?Class_Name) (12 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:Event.' AS ?Rule_Description) (concat('The dataeu:Event',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Event.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:13 dataeu:Event - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Event.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:Event' AS ?Class_Name).
+     BIND (13 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:14 dataeu:Event - dct:description MAX
+  {SELECT (dataeu:Event AS ?Class_Name) (14 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:Event.' AS ?Rule_Description) (concat('The dataeu:Event',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Event.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:15 dataeu:Event - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Event.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:Event' AS ?Class_Name).
+     BIND (15 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:16 dataeu:Event - dct:relation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Event.
+     ?s dct:relation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:PublicService}).
+     BIND ('dataeu:Event' AS ?Class_Name).
+     BIND (16 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:relation should be a cpsv:PublicService.' AS ?Rule_Description).
+     BIND (concat('dataeu:Event ',str(?s),' does not have a dct:relation property of type cpsv:PublicService.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:17 dataeu:BusinessEvent - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:BusinessEvent.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:BusinessEvent' AS ?Class_Name).
+      BIND (17 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:BusinessEvent.' AS ?Rule_Description).
+      BIND (concat('The dataeu:BusinessEvent ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:18 dataeu:BusinessEvent - dct:identifier MAX
+  {SELECT (dataeu:BusinessEvent AS ?Class_Name) (18 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:BusinessEvent.' AS ?Rule_Description) (concat('The dataeu:BusinessEvent',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:BusinessEvent.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:19 dataeu:BusinessEvent - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:BusinessEvent.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dataeu:BusinessEvent' AS ?Class_Name).
+      BIND (19 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dataeu:BusinessEvent.' AS ?Rule_Description).
+      BIND (concat('The dataeu:BusinessEvent ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:20 dataeu:BusinessEvent - dct:title MAX
+  {SELECT (dataeu:BusinessEvent AS ?Class_Name) (20 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:BusinessEvent.' AS ?Rule_Description) (concat('The dataeu:BusinessEvent',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:BusinessEvent.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:21 dataeu:BusinessEvent - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:BusinessEvent.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:BusinessEvent' AS ?Class_Name).
+     BIND (21 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:22 dataeu:BusinessEvent - dct:description MAX
+  {SELECT (dataeu:BusinessEvent AS ?Class_Name) (22 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:BusinessEvent.' AS ?Rule_Description) (concat('The dataeu:BusinessEvent',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:BusinessEvent.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:23 dataeu:BusinessEvent - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:BusinessEvent.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:BusinessEvent' AS ?Class_Name).
+     BIND (23 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:24 dataeu:BusinessEvent - dct:relation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:BusinessEvent.
+     ?s dct:relation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:PublicService}).
+     BIND ('dataeu:BusinessEvent' AS ?Class_Name).
+     BIND (24 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:relation should be a cpsv:PublicService.' AS ?Rule_Description).
+     BIND (concat('dataeu:BusinessEvent ',str(?s),' does not have a dct:relation property of type cpsv:PublicService.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:25 dataeu:LifeEvent - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:LifeEvent.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:LifeEvent' AS ?Class_Name).
+      BIND (25 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:LifeEvent.' AS ?Rule_Description).
+      BIND (concat('The dataeu:LifeEvent ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:26 dataeu:LifeEvent - dct:identifier MAX
+  {SELECT (dataeu:LifeEvent AS ?Class_Name) (26 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:LifeEvent.' AS ?Rule_Description) (concat('The dataeu:LifeEvent',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:LifeEvent.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:27 dataeu:LifeEvent - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:LifeEvent.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dataeu:LifeEvent' AS ?Class_Name).
+      BIND (27 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dataeu:LifeEvent.' AS ?Rule_Description).
+      BIND (concat('The dataeu:LifeEvent ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:28 dataeu:LifeEvent - dct:title MAX
+  {SELECT (dataeu:LifeEvent AS ?Class_Name) (28 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:LifeEvent.' AS ?Rule_Description) (concat('The dataeu:LifeEvent',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:LifeEvent.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:29 dataeu:LifeEvent - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:LifeEvent.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:LifeEvent' AS ?Class_Name).
+     BIND (29 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:30 dataeu:LifeEvent - dct:description MAX
+  {SELECT (dataeu:LifeEvent AS ?Class_Name) (30 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:LifeEvent.' AS ?Rule_Description) (concat('The dataeu:LifeEvent',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:LifeEvent.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:31 dataeu:LifeEvent - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:LifeEvent.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:LifeEvent' AS ?Class_Name).
+     BIND (31 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:32 dataeu:LifeEvent - dct:relation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:LifeEvent.
+     ?s dct:relation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:PublicService}).
+     BIND ('dataeu:LifeEvent' AS ?Class_Name).
+     BIND (32 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:relation should be a cpsv:PublicService.' AS ?Rule_Description).
+     BIND (concat('dataeu:LifeEvent ',str(?s),' does not have a dct:relation property of type cpsv:PublicService.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:33 cpsv:PublicService - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:PublicService.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('cpsv:PublicService' AS ?Class_Name).
+      BIND (33 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for cpsv:PublicService.' AS ?Rule_Description).
+      BIND (concat('The cpsv:PublicService ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:34 cpsv:PublicService - dct:identifier MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (34 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:35 cpsv:PublicService - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:PublicService.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('cpsv:PublicService' AS ?Class_Name).
+      BIND (35 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for cpsv:PublicService.' AS ?Rule_Description).
+      BIND (concat('The cpsv:PublicService ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:36 cpsv:PublicService - dct:title MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (36 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:37 cpsv:PublicService - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (37 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:38 cpsv:PublicService - dct:description MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:PublicService.
+      FILTER(!EXISTS {?s dct:description ?name}).
+      BIND (dct:description AS ?p).
+      BIND ('cpsv:PublicService' AS ?Class_Name).
+      BIND (38 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:description is a required property for cpsv:PublicService.' AS ?Rule_Description).
+      BIND (concat('The cpsv:PublicService ',str(?s),' does not have a dct:description property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:39 cpsv:PublicService - dct:description MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (39 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:40 cpsv:PublicService - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (40 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:41 cpsv:PublicService - adms:status MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (41 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('adms:status has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 adms:status.') AS ?Message) ?s (adms:status AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s adms:status ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:42 cpsv:PublicService - dataeu:isGroupedBy USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:isGroupedBy ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Event}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (42 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:isGroupedBy should be a dataeu:Event.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:isGroupedBy property of type dataeu:Event.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:43 cpsv:PublicService - dct:requires USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:requires ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:PublicService}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (43 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:requires should be a cpsv:PublicService.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dct:requires property of type cpsv:PublicService.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:44 cpsv:PublicService - dct:relation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dct:relation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:PublicService}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (44 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:relation should be a cpsv:PublicService.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dct:relation property of type cpsv:PublicService.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:45 cpsv:PublicService - dataeu:hasCriterion USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasCriterion ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:CriterionRequirement}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (45 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasCriterion should be a dataeu:CriterionRequirement.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasCriterion property of type dataeu:CriterionRequirement.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:46 cpsv:PublicService - dataeu:hasCompetentAuthority MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:PublicService.
+      FILTER(!EXISTS {?s dataeu:hasCompetentAuthority ?name}).
+      BIND (dataeu:hasCompetentAuthority AS ?p).
+      BIND ('cpsv:PublicService' AS ?Class_Name).
+      BIND (46 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dataeu:hasCompetentAuthority is a required property for cpsv:PublicService.' AS ?Rule_Description).
+      BIND (concat('The cpsv:PublicService ',str(?s),' does not have a dataeu:hasCompetentAuthority property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:47 cpsv:PublicService - dataeu:hasCompetentAuthority MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (47 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:hasCompetentAuthority has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dataeu:hasCompetentAuthority.') AS ?Message) ?s (dataeu:hasCompetentAuthority AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasCompetentAuthority ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:48 cpsv:PublicService - dataeu:hasCompetentAuthority USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasCompetentAuthority ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:PublicOrganisation}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (48 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasCompetentAuthority should be a dataeu:PublicOrganisation.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasCompetentAuthority property of type dataeu:PublicOrganisation.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:49 cpsv:PublicService - dataeu:hasParticipation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasParticipation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Participation}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (49 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasParticipation should be a dataeu:Participation.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasParticipation property of type dataeu:Participation.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:50 cpsv:PublicService - cpsv:hasInput MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:PublicService.
+      FILTER(!EXISTS {?s cpsv:hasInput ?name}).
+      BIND (cpsv:hasInput AS ?p).
+      BIND ('cpsv:PublicService' AS ?Class_Name).
+      BIND (50 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('cpsv:hasInput is a required property for cpsv:PublicService.' AS ?Rule_Description).
+      BIND (concat('The cpsv:PublicService ',str(?s),' does not have a cpsv:hasInput property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:51 cpsv:PublicService - cpsv:hasInput USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s cpsv:hasInput ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Evidence}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (51 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('cpsv:hasInput should be a dataeu:Evidence.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a cpsv:hasInput property of type dataeu:Evidence.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:52 cpsv:PublicService - dataeu:hasFormalFramework USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasFormalFramework ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:FormalFramework}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (52 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasFormalFramework should be a cpsv:FormalFramework.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasFormalFramework property of type cpsv:FormalFramework.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:53 cpsv:PublicService - cpsv:produces USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s cpsv:produces ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Output}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (53 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('cpsv:produces should be a dataeu:Output.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a cpsv:produces property of type dataeu:Output.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:54 cpsv:PublicService - cpsv:follows USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s cpsv:follows ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:Rule}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (54 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('cpsv:follows should be a cpsv:Rule.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a cpsv:follows property of type cpsv:Rule.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:55 cpsv:PublicService - dataeu:hasContactPoint MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (55 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:hasContactPoint has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dataeu:hasContactPoint.') AS ?Message) ?s (dataeu:hasContactPoint AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasContactPoint ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:56 cpsv:PublicService - dataeu:hasContactPoint USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasContactPoint ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a schema:ContactPoint}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (56 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasContactPoint should be a schema:ContactPoint.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasContactPoint property of type schema:ContactPoint.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:57 cpsv:PublicService - dataeu:hasChannel USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasChannel ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Channel}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (57 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasChannel should be a dataeu:Channel.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasChannel property of type dataeu:Channel.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:58 cpsv:PublicService - dataeu:processingTime MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (58 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:processingTime has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dataeu:processingTime.') AS ?Message) ?s (dataeu:processingTime AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:processingTime ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:59 cpsv:PublicService - dataeu:hasCost MAX
+  {SELECT (cpsv:PublicService AS ?Class_Name) (59 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:hasCost has maximum cardinality of 1 for cpsv:PublicService.' AS ?Rule_Description) (concat('The cpsv:PublicService',str(?s),' has more than 1 dataeu:hasCost.') AS ?Message) ?s (dataeu:hasCost AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasCost ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:60 cpsv:PublicService - dataeu:hasCost USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:PublicService.
+     ?s dataeu:hasCost ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Cost}).
+     BIND ('cpsv:PublicService' AS ?Class_Name).
+     BIND (60 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasCost should be a dataeu:Cost.' AS ?Rule_Description).
+     BIND (concat('cpsv:PublicService ',str(?s),' does not have a dataeu:hasCost property of type dataeu:Cost.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:61 dataeu:Participation - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Participation.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:Participation' AS ?Class_Name).
+      BIND (61 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:Participation.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Participation ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:62 dataeu:Participation - dct:identifier MAX
+  {SELECT (dataeu:Participation AS ?Class_Name) (62 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:Participation.' AS ?Rule_Description) (concat('The dataeu:Participation',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Participation.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:63 dataeu:Participation - dct:description MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Participation.
+      FILTER(!EXISTS {?s dct:description ?name}).
+      BIND (dct:description AS ?p).
+      BIND ('dataeu:Participation' AS ?Class_Name).
+      BIND (63 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:description is a required property for dataeu:Participation.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Participation ',str(?s),' does not have a dct:description property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:64 dataeu:Participation - dct:description MAX
+  {SELECT (dataeu:Participation AS ?Class_Name) (64 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:Participation.' AS ?Rule_Description) (concat('The dataeu:Participation',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Participation.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:65 dataeu:Participation - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Participation.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:Participation' AS ?Class_Name).
+     BIND (65 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:66 dataeu:Participation - dataeu:role MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Participation.
+      FILTER(!EXISTS {?s dataeu:role ?name}).
+      BIND (dataeu:role AS ?p).
+      BIND ('dataeu:Participation' AS ?Class_Name).
+      BIND (66 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dataeu:role is a required property for dataeu:Participation.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Participation ',str(?s),' does not have a dataeu:role property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:67 dataeu:CriterionRequirement - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:CriterionRequirement.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:CriterionRequirement' AS ?Class_Name).
+      BIND (67 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:CriterionRequirement.' AS ?Rule_Description).
+      BIND (concat('The dataeu:CriterionRequirement ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:68 dataeu:CriterionRequirement - dct:identifier MAX
+  {SELECT (dataeu:CriterionRequirement AS ?Class_Name) (68 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:CriterionRequirement.' AS ?Rule_Description) (concat('The dataeu:CriterionRequirement',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:CriterionRequirement.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:69 dataeu:CriterionRequirement - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:CriterionRequirement.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dataeu:CriterionRequirement' AS ?Class_Name).
+      BIND (69 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dataeu:CriterionRequirement.' AS ?Rule_Description).
+      BIND (concat('The dataeu:CriterionRequirement ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:70 dataeu:CriterionRequirement - dct:title MAX
+  {SELECT (dataeu:CriterionRequirement AS ?Class_Name) (70 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:CriterionRequirement.' AS ?Rule_Description) (concat('The dataeu:CriterionRequirement',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:CriterionRequirement.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:71 dataeu:CriterionRequirement - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:CriterionRequirement.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:CriterionRequirement' AS ?Class_Name).
+     BIND (71 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:72 dataeu:CriterionRequirement - dct:type MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:CriterionRequirement.
+      FILTER(!EXISTS {?s dct:type ?name}).
+      BIND (dct:type AS ?p).
+      BIND ('dataeu:CriterionRequirement' AS ?Class_Name).
+      BIND (72 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:type is a required property for dataeu:CriterionRequirement.' AS ?Rule_Description).
+      BIND (concat('The dataeu:CriterionRequirement ',str(?s),' does not have a dct:type property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:73 dataeu:CriterionRequirement - dct:type MAX
+  {SELECT (dataeu:CriterionRequirement AS ?Class_Name) (73 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:type has maximum cardinality of 1 for dataeu:CriterionRequirement.' AS ?Rule_Description) (concat('The dataeu:CriterionRequirement',str(?s),' has more than 1 dct:type.') AS ?Message) ?s (dct:type AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:CriterionRequirement.
+     ?s dct:type ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:74 dataeu:CriterionRequirement - dct:type USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:CriterionRequirement.
+     ?s dct:type ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:type AS ?p).
+     BIND ('dataeu:CriterionRequirement' AS ?Class_Name).
+     BIND (74 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:type property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:75 dataeu:Evidence - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Evidence.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:Evidence' AS ?Class_Name).
+      BIND (75 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:Evidence.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Evidence ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:76 dataeu:Evidence - dct:identifier MAX
+  {SELECT (dataeu:Evidence AS ?Class_Name) (76 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:Evidence.' AS ?Rule_Description) (concat('The dataeu:Evidence',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Evidence.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:77 dataeu:Evidence - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Evidence.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dataeu:Evidence' AS ?Class_Name).
+      BIND (77 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dataeu:Evidence.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Evidence ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:78 dataeu:Evidence - dct:title MAX
+  {SELECT (dataeu:Evidence AS ?Class_Name) (78 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:Evidence.' AS ?Rule_Description) (concat('The dataeu:Evidence',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Evidence.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:79 dataeu:Evidence - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Evidence.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:Evidence' AS ?Class_Name).
+     BIND (79 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:80 dataeu:Evidence - dct:description MAX
+  {SELECT (dataeu:Evidence AS ?Class_Name) (80 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:Evidence.' AS ?Rule_Description) (concat('The dataeu:Evidence',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Evidence.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:81 dataeu:Evidence - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Evidence.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:Evidence' AS ?Class_Name).
+     BIND (81 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:82 dataeu:Evidence - dct:type MAX
+  {SELECT (dataeu:Evidence AS ?Class_Name) (82 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:type has maximum cardinality of 1 for dataeu:Evidence.' AS ?Rule_Description) (concat('The dataeu:Evidence',str(?s),' has more than 1 dct:type.') AS ?Message) ?s (dct:type AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Evidence.
+     ?s dct:type ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:83 dataeu:Output - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Output.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:Output' AS ?Class_Name).
+      BIND (83 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:Output.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Output ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:84 dataeu:Output - dct:identifier MAX
+  {SELECT (dataeu:Output AS ?Class_Name) (84 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:Output.' AS ?Rule_Description) (concat('The dataeu:Output',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Output.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:85 dataeu:Output - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Output.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('dataeu:Output' AS ?Class_Name).
+      BIND (85 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for dataeu:Output.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Output ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:86 dataeu:Output - dct:title MAX
+  {SELECT (dataeu:Output AS ?Class_Name) (86 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:Output.' AS ?Rule_Description) (concat('The dataeu:Output',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Output.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:87 dataeu:Output - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Output.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:Output' AS ?Class_Name).
+     BIND (87 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:88 dataeu:Output - dct:description MAX
+  {SELECT (dataeu:Output AS ?Class_Name) (88 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:Output.' AS ?Rule_Description) (concat('The dataeu:Output',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Output.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:89 dataeu:Output - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Output.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:Output' AS ?Class_Name).
+     BIND (89 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:90 dataeu:Cost - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Cost.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:Cost' AS ?Class_Name).
+      BIND (90 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:Cost.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Cost ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:91 dataeu:Cost - dct:identifier MAX
+  {SELECT (dataeu:Cost AS ?Class_Name) (91 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:Cost.' AS ?Rule_Description) (concat('The dataeu:Cost',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:92 dataeu:Cost - dct:identifier USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dct:identifier ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:identifier AS ?p).
+     BIND ('dataeu:Cost' AS ?Class_Name).
+     BIND (92 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:identifier property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:93 dataeu:Cost - dataeu:value MAX
+  {SELECT (dataeu:Cost AS ?Class_Name) (93 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:value has maximum cardinality of 1 for dataeu:Cost.' AS ?Rule_Description) (concat('The dataeu:Cost',str(?s),' has more than 1 dataeu:value.') AS ?Message) ?s (dataeu:value AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dataeu:value ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:94 dataeu:Cost - dct:description MAX
+  {SELECT (dataeu:Cost AS ?Class_Name) (94 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for dataeu:Cost.' AS ?Rule_Description) (concat('The dataeu:Cost',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:95 dataeu:Cost - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('dataeu:Cost' AS ?Class_Name).
+     BIND (95 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:96 dataeu:Cost - dataeu:currency MAX
+  {SELECT (dataeu:Cost AS ?Class_Name) (96 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:currency has maximum cardinality of 1 for dataeu:Cost.' AS ?Rule_Description) (concat('The dataeu:Cost',str(?s),' has more than 1 dataeu:currency.') AS ?Message) ?s (dataeu:currency AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dataeu:currency ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:97 dataeu:Cost - dataeu:isDefinedBy MAX
+  {SELECT (dataeu:Cost AS ?Class_Name) (97 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:isDefinedBy has maximum cardinality of 1 for dataeu:Cost.' AS ?Rule_Description) (concat('The dataeu:Cost',str(?s),' has more than 1 dataeu:isDefinedBy.') AS ?Message) ?s (dataeu:isDefinedBy AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dataeu:isDefinedBy ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:98 dataeu:Cost - dataeu:isDefinedBy USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dataeu:isDefinedBy ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:PublicOrganisation}).
+     BIND ('dataeu:Cost' AS ?Class_Name).
+     BIND (98 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:isDefinedBy should be a dataeu:PublicOrganisation.' AS ?Rule_Description).
+     BIND (concat('dataeu:Cost ',str(?s),' does not have a dataeu:isDefinedBy property of type dataeu:PublicOrganisation.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:99 dataeu:Cost - dataeu:ifAccessedThrough MAX
+  {SELECT (dataeu:Cost AS ?Class_Name) (99 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:ifAccessedThrough has maximum cardinality of 1 for dataeu:Cost.' AS ?Rule_Description) (concat('The dataeu:Cost',str(?s),' has more than 1 dataeu:ifAccessedThrough.') AS ?Message) ?s (dataeu:ifAccessedThrough AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dataeu:ifAccessedThrough ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:100 dataeu:Cost - dataeu:ifAccessedThrough USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Cost.
+     ?s dataeu:ifAccessedThrough ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Channel}).
+     BIND ('dataeu:Cost' AS ?Class_Name).
+     BIND (100 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:ifAccessedThrough should be a dataeu:Channel.' AS ?Rule_Description).
+     BIND (concat('dataeu:Cost ',str(?s),' does not have a dataeu:ifAccessedThrough property of type dataeu:Channel.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:101 dataeu:Channel - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:Channel.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:Channel' AS ?Class_Name).
+      BIND (101 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:Channel.' AS ?Rule_Description).
+      BIND (concat('The dataeu:Channel ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:102 dataeu:Channel - dct:identifier MAX
+  {SELECT (dataeu:Channel AS ?Class_Name) (102 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:Channel.' AS ?Rule_Description) (concat('The dataeu:Channel',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:103 dataeu:Channel - dataeu:isOwnedBy USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dataeu:isOwnedBy ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:PublicOrganisation}).
+     BIND ('dataeu:Channel' AS ?Class_Name).
+     BIND (103 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:isOwnedBy should be a dataeu:PublicOrganisation.' AS ?Rule_Description).
+     BIND (concat('dataeu:Channel ',str(?s),' does not have a dataeu:isOwnedBy property of type dataeu:PublicOrganisation.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:104 dataeu:Channel - dct:type MAX
+  {SELECT (dataeu:Channel AS ?Class_Name) (104 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:type has maximum cardinality of 1 for dataeu:Channel.' AS ?Rule_Description) (concat('The dataeu:Channel',str(?s),' has more than 1 dct:type.') AS ?Message) ?s (dct:type AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dct:type ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:105 dataeu:Channel - dataeu:availability MAX
+  {SELECT (dataeu:Channel AS ?Class_Name) (105 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:availability has maximum cardinality of 1 for dataeu:Channel.' AS ?Rule_Description) (concat('The dataeu:Channel',str(?s),' has more than 1 dataeu:availability.') AS ?Message) ?s (dataeu:availability AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dataeu:availability ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:106 dataeu:Channel - dataeu:availability USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dataeu:availability ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a schema:OpeningHoursSpecification}).
+     BIND ('dataeu:Channel' AS ?Class_Name).
+     BIND (106 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:availability should be a schema:OpeningHoursSpecification.' AS ?Rule_Description).
+     BIND (concat('dataeu:Channel ',str(?s),' does not have a dataeu:availability property of type schema:OpeningHoursSpecification.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:107 dataeu:Channel - dataeu:hasCost MAX
+  {SELECT (dataeu:Channel AS ?Class_Name) (107 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:hasCost has maximum cardinality of 1 for dataeu:Channel.' AS ?Rule_Description) (concat('The dataeu:Channel',str(?s),' has more than 1 dataeu:hasCost.') AS ?Message) ?s (dataeu:hasCost AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dataeu:hasCost ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:108 dataeu:Channel - dataeu:hasCost USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s dataeu:hasCost ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Cost}).
+     BIND ('dataeu:Channel' AS ?Class_Name).
+     BIND (108 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasCost should be a dataeu:Cost.' AS ?Rule_Description).
+     BIND (concat('dataeu:Channel ',str(?s),' does not have a dataeu:hasCost property of type dataeu:Cost.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:109 dataeu:Channel - cpsv:hasInput USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s cpsv:hasInput ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dataeu:Evidence}).
+     BIND ('dataeu:Channel' AS ?Class_Name).
+     BIND (109 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('cpsv:hasInput should be a dataeu:Evidence.' AS ?Rule_Description).
+     BIND (concat('dataeu:Channel ',str(?s),' does not have a cpsv:hasInput property of type dataeu:Evidence.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:110 dataeu:Channel - schema:openingHours USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:Channel.
+     ?s schema:openingHours ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (schema:openingHours AS ?p).
+     BIND ('dataeu:Channel' AS ?Class_Name).
+     BIND (110 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The schema:openingHours property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:111 cpsv:Rule - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:Rule.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('cpsv:Rule' AS ?Class_Name).
+      BIND (111 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for cpsv:Rule.' AS ?Rule_Description).
+      BIND (concat('The cpsv:Rule ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:112 cpsv:Rule - dct:identifier MAX
+  {SELECT (cpsv:Rule AS ?Class_Name) (112 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for cpsv:Rule.' AS ?Rule_Description) (concat('The cpsv:Rule',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:Rule.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:113 cpsv:Rule - dct:description MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:Rule.
+      FILTER(!EXISTS {?s dct:description ?name}).
+      BIND (dct:description AS ?p).
+      BIND ('cpsv:Rule' AS ?Class_Name).
+      BIND (113 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:description is a required property for cpsv:Rule.' AS ?Rule_Description).
+      BIND (concat('The cpsv:Rule ',str(?s),' does not have a dct:description property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:114 cpsv:Rule - dct:description MAX
+  {SELECT (cpsv:Rule AS ?Class_Name) (114 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for cpsv:Rule.' AS ?Rule_Description) (concat('The cpsv:Rule',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:Rule.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:115 cpsv:Rule - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:Rule.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('cpsv:Rule' AS ?Class_Name).
+     BIND (115 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:116 cpsv:Rule - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:Rule.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('cpsv:Rule' AS ?Class_Name).
+      BIND (116 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for cpsv:Rule.' AS ?Rule_Description).
+      BIND (concat('The cpsv:Rule ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:117 cpsv:Rule - dct:title MAX
+  {SELECT (cpsv:Rule AS ?Class_Name) (117 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for cpsv:Rule.' AS ?Rule_Description) (concat('The cpsv:Rule',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:Rule.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:118 cpsv:Rule - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:Rule.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('cpsv:Rule' AS ?Class_Name).
+     BIND (118 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:119 cpsv:Rule - cpsv:implements USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:Rule.
+     ?s cpsv:implements ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:FormalFramework}).
+     BIND ('cpsv:Rule' AS ?Class_Name).
+     BIND (119 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('cpsv:implements should be a cpsv:FormalFramework.' AS ?Rule_Description).
+     BIND (concat('cpsv:Rule ',str(?s),' does not have a cpsv:implements property of type cpsv:FormalFramework.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:120 cpsv:FormalFramework - dct:title MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:FormalFramework.
+      FILTER(!EXISTS {?s dct:title ?name}).
+      BIND (dct:title AS ?p).
+      BIND ('cpsv:FormalFramework' AS ?Class_Name).
+      BIND (120 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:title is a required property for cpsv:FormalFramework.' AS ?Rule_Description).
+      BIND (concat('The cpsv:FormalFramework ',str(?s),' does not have a dct:title property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:121 cpsv:FormalFramework - dct:title MAX
+  {SELECT (cpsv:FormalFramework AS ?Class_Name) (121 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for cpsv:FormalFramework.' AS ?Rule_Description) (concat('The cpsv:FormalFramework',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:122 cpsv:FormalFramework - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('cpsv:FormalFramework' AS ?Class_Name).
+     BIND (122 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:123 cpsv:FormalFramework - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a cpsv:FormalFramework.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('cpsv:FormalFramework' AS ?Class_Name).
+      BIND (123 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for cpsv:FormalFramework.' AS ?Rule_Description).
+      BIND (concat('The cpsv:FormalFramework ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:124 cpsv:FormalFramework - dct:identifier MAX
+  {SELECT (cpsv:FormalFramework AS ?Class_Name) (124 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for cpsv:FormalFramework.' AS ?Rule_Description) (concat('The cpsv:FormalFramework',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:125 cpsv:FormalFramework - dct:description MAX
+  {SELECT (cpsv:FormalFramework AS ?Class_Name) (125 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:description has maximum cardinality of 1 for cpsv:FormalFramework.' AS ?Rule_Description) (concat('The cpsv:FormalFramework',str(?s),' has more than 1 dct:description.') AS ?Message) ?s (dct:description AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s dct:description ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:126 cpsv:FormalFramework - dct:description USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s dct:description ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:description AS ?p).
+     BIND ('cpsv:FormalFramework' AS ?Class_Name).
+     BIND (126 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:description property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:127 cpsv:FormalFramework - adms:status MAX
+  {SELECT (cpsv:FormalFramework AS ?Class_Name) (127 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('adms:status has maximum cardinality of 1 for cpsv:FormalFramework.' AS ?Rule_Description) (concat('The cpsv:FormalFramework',str(?s),' has more than 1 adms:status.') AS ?Message) ?s (adms:status AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s adms:status ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:128 cpsv:FormalFramework - dct:relation USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a cpsv:FormalFramework.
+     ?s dct:relation ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a cpsv:FormalFramework}).
+     BIND ('cpsv:FormalFramework' AS ?Class_Name).
+     BIND (128 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dct:relation should be a cpsv:FormalFramework.' AS ?Rule_Description).
+     BIND (concat('cpsv:FormalFramework ',str(?s),' does not have a dct:relation property of type cpsv:FormalFramework.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:129 dataeu:PublicOrganisation - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:PublicOrganisation.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('dataeu:PublicOrganisation' AS ?Class_Name).
+      BIND (129 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for dataeu:PublicOrganisation.' AS ?Rule_Description).
+      BIND (concat('The dataeu:PublicOrganisation ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:130 dataeu:PublicOrganisation - dct:identifier MAX
+  {SELECT (dataeu:PublicOrganisation AS ?Class_Name) (130 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for dataeu:PublicOrganisation.' AS ?Rule_Description) (concat('The dataeu:PublicOrganisation',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:131 dataeu:PublicOrganisation - skos:prefLabel MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a dataeu:PublicOrganisation.
+      FILTER(!EXISTS {?s skos:prefLabel ?name}).
+      BIND (skos:prefLabel AS ?p).
+      BIND ('dataeu:PublicOrganisation' AS ?Class_Name).
+      BIND (131 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('skos:prefLabel is a required property for dataeu:PublicOrganisation.' AS ?Rule_Description).
+      BIND (concat('The dataeu:PublicOrganisation ',str(?s),' does not have a skos:prefLabel property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:132 dataeu:PublicOrganisation - skos:prefLabel MAX
+  {SELECT (dataeu:PublicOrganisation AS ?Class_Name) (132 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('skos:prefLabel has maximum cardinality of 1 for dataeu:PublicOrganisation.' AS ?Rule_Description) (concat('The dataeu:PublicOrganisation',str(?s),' has more than 1 skos:prefLabel.') AS ?Message) ?s (skos:prefLabel AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s skos:prefLabel ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:133 dataeu:PublicOrganisation - dct:title MAX
+  {SELECT (dataeu:PublicOrganisation AS ?Class_Name) (133 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:title has maximum cardinality of 1 for dataeu:PublicOrganisation.' AS ?Rule_Description) (concat('The dataeu:PublicOrganisation',str(?s),' has more than 1 dct:title.') AS ?Message) ?s (dct:title AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s dct:title ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:134 dataeu:PublicOrganisation - dct:title USAGE Literal
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s dct:title ?o.
+     FILTER(!isLiteral(?o)).
+     BIND (dct:title AS ?p).
+     BIND ('dataeu:PublicOrganisation' AS ?Class_Name).
+     BIND (134 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('The dct:title property should be a literal.' AS ?Rule_Description).
+     BIND (concat('The property ',str(?p),' is not a literal.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:135 dataeu:PublicOrganisation - dataeu:playsRole USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s dataeu:playsRole ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a dateu:participation}).
+     BIND ('dataeu:PublicOrganisation' AS ?Class_Name).
+     BIND (135 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:playsRole should be a dateu:participation.' AS ?Rule_Description).
+     BIND (concat('dataeu:PublicOrganisation ',str(?s),' does not have a dataeu:playsRole property of type dateu:participation.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:136 dataeu:PublicOrganisation - dataeu:hasAddress MAX
+  {SELECT (dataeu:PublicOrganisation AS ?Class_Name) (136 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dataeu:hasAddress has maximum cardinality of 1 for dataeu:PublicOrganisation.' AS ?Rule_Description) (concat('The dataeu:PublicOrganisation',str(?s),' has more than 1 dataeu:hasAddress.') AS ?Message) ?s (dataeu:hasAddress AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s dataeu:hasAddress ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:137 dataeu:PublicOrganisation - dataeu:hasAddress USAGE
+  {SELECT DISTINCT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p ?o
+   WHERE {
+     ?s a dataeu:PublicOrganisation.
+     ?s dataeu:hasAddress ?o.
+     ?o ?p ?val.
+     FILTER(!EXISTS {?o a locn:Address}).
+     BIND ('dataeu:PublicOrganisation' AS ?Class_Name).
+     BIND (137 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:hasAddress should be a locn:Address.' AS ?Rule_Description).
+     BIND (concat('dataeu:PublicOrganisation ',str(?s),' does not have a dataeu:hasAddress property of type locn:Address.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:138 schema:OpeningHoursSpecification - dct:identifier MIN
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
+    WHERE {
+      ?s a schema:OpeningHoursSpecification.
+      FILTER(!EXISTS {?s dct:identifier ?name}).
+      BIND (dct:identifier AS ?p).
+      BIND ('schema:OpeningHoursSpecification' AS ?Class_Name).
+      BIND (138 AS ?Rule_ID).
+      BIND ('error' AS ?Rule_Severity).
+      BIND ('dct:identifier is a required property for schema:OpeningHoursSpecification.' AS ?Rule_Description).
+      BIND (concat('The schema:OpeningHoursSpecification ',str(?s),' does not have a dct:identifier property.') AS ?Message).
+    }
+  }
+
+UNION
+# Rule_ID:139 schema:OpeningHoursSpecification - dct:identifier MAX
+  {SELECT (schema:OpeningHoursSpecification AS ?Class_Name) (139 AS ?Rule_ID) ('error' AS ?Rule_Severity) ('dct:identifier has maximum cardinality of 1 for schema:OpeningHoursSpecification.' AS ?Rule_Description) (concat('The schema:OpeningHoursSpecification',str(?s),' has more than 1 dct:identifier.') AS ?Message) ?s (dct:identifier AS ?p) (sample(?spa) AS ?o)
+   WHERE {
+     ?s a schema:OpeningHoursSpecification.
+     ?s dct:identifier ?spa.
+   } GROUP BY ?s
+     HAVING (COUNT( ?s) > 1)
+  }
+
+UNION
+# Rule_ID:140 dataeu:PublicOrganisation - MANDATORY Class
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a dataeu:PublicOrganisation}).
+     BIND (dataeu:PublicOrganisation AS ?Class_Name).
+     BIND (140 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:PublicOrganisation does not exist.' AS ?Rule_Description).
+     BIND (concat('The mandatory class dataeu:PublicOrganisation does not exist.') AS ?Message).
+   }
+  }
+
+UNION
+# Rule_ID:141 dataeu:PublicService - MANDATORY Class
+  {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
+   WHERE {
+     FILTER(!EXISTS {?s a dataeu:PublicService}).
+     BIND (dataeu:PublicService AS ?Class_Name).
+     BIND (141 AS ?Rule_ID).
+     BIND ('error' AS ?Rule_Severity).
+     BIND ('dataeu:PublicService does not exist.' AS ?Rule_Description).
+     BIND (concat('The mandatory class dataeu:PublicService does not exist.') AS ?Message).
+   }
+  }
+
+
+}
+}

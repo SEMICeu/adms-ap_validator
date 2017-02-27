@@ -1,0 +1,21 @@
+body{height:100%;font-family:Verdana, Arial, Helvetica, sans-serif;color:#999;font-size:11pt;font-weight:400;margin:10px;}
+table{padding-bottom:20px;}
+.mainHr{border:none 0;border-top:1px solid #000;width:80%;height:1px;}
+hr{border:none 0;border-top:1px dashed #000;width:80%;height:1px;}
+.startTarget{padding-top:5px;}
+.tocList{width:20%;background-color:#E4E4E4;padding-top:20px;padding-right:20px;padding-left:20px;vertical-align:top;}
+.mainContent{width:80%;padding-left:10px;vertical-align:top;}
+.tasksHeader{vertical-align:top;}
+a{text-decoration:none;color:#999;font-size:12px;}
+a:link{color:#878787;}
+a:visited{color:#999;}
+a:active{color:red;}
+a:hover{color:#666;}
+big{color:#000;font-size:11pt;}
+h1{font-size:14pt;color:#000;}
+h2{font-size:12pt;color:#000;}
+b{font-size:11pt;}
+pre{font-family:Monaco, Verdana, sans-serif;}
+header#branding{background-color:#002060;min-height:70px;width:100%;display:table;}
+header#branding img{float:left;}
+header#branding h1{display:table-cell;vertical-align:middle;color:#fff;}
