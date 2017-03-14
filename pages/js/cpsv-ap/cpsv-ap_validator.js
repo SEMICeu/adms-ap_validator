@@ -11,7 +11,7 @@ var sparqlEndpoint = "sparql-graph-crud";
 /**
  * Homepage
  */
-var homepage = "cpsv-ap_validator/";
+var homepage = "adms-ap_validator/";
 /**
  * CPSV-AP server host
  */
