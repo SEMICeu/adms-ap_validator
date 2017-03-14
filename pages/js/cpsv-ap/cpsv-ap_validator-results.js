@@ -1,12 +1,12 @@
 /**
- * Utility functions for the results of CPSV-AP validator.
+ * Utility functions for the results of ADMS-AP validator.
  * @license EUPL v1.1
  */
 
 /**
  * Homepage
  */
-var homepage = "cpsv-ap_validator/";
+var homepage = "adms-ap_validator/";
 /**
  * CAT-AP server cookie name
  */
@@ -60,7 +60,7 @@ $(document).ready(function () {
         if ($anchor.length) {
             text = $cell.text().trim();
             query = 'SELECT (<' + text + '> AS ?Subject) ?Predicate ?Object WHERE { GRAPH <' + graph + '> {<' + text + '> ?Predicate ?Object }}';
-            query_param = '&output=xml&xslt-uri=http://cpsv-ap.semic.eu/cpsv-ap_validator/xml-to-html-cpsv-ap.xsl';
+            query_param = '&output=xml&xslt-uri=http://cpsv-ap.semic.eu/adms-ap_validator/xml-to-html-cpsv-ap.xsl';
             link = '<a href="?query=' + encodeURIComponent(query) + query_param + '">' + text + '</a>';
             $(this).html(link);
         }
