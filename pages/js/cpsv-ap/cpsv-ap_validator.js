@@ -1,5 +1,5 @@
 /**
- * Utility functions for the CPSV-AP validator.
+ * Utility functions for the ADMS-AP validator.
  * @license EUPL v1.1
  */
 
@@ -31,7 +31,7 @@ var servercookiename = "cpsv-ap";
 /**
  * CPSV-AP query file
  */
-var queryfile = "cpsv-ap.txt";
+var queryfile = "adms-ap.txt";
 /**
  * CPSV-AP sample ttl file
  */
