@@ -21,7 +21,6 @@ SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message (?s AS ?Su
 WHERE{
 GRAPH <@@@TOKEN-GRAPH@@@> {
 
-UNION
 # Rule_ID:1 dcat:Dataset - dcat:contactPoint MIN
   {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
     WHERE {
