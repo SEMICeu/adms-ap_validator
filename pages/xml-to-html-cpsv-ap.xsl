@@ -122,7 +122,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
     -->
 
      <xsl:variable name="query">SELECT%20%28%3C<xsl:value-of select="$x"/>%3E%20AS%20%3Fsubject%29%20%3Fpredicate%20%3Fobject%20%7B%3C<xsl:value-of select="$x"/>%3E%20%3Fpredicate%20%3Fobject%20%7D</xsl:variable>
-    <a href="?query={$query}&amp;output=xml&amp;xslt-uri=%2Fcpsv-ap_validator%2Fxml-to-html-cpsv-ap.xsl" class="uri"><xsl:value-of select="."/></a>
+    <a href="?query={$query}&amp;output=xml&amp;xslt-uri=%2Fadms-ap_validator%2Fxml-to-html-cpsv-ap.xsl" class="uri"><xsl:value-of select="."/></a>
   </xsl:template>
 
   <xsl:template match="res:literal[@datatype]">
@@ -138,7 +138,7 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   <xsl:template match="res:binding[@name='Rule_ID']">
 	<!-- datatyped literal value -->
 	<xsl:variable name="x"><xsl:value-of select="."/></xsl:variable>
-	<xsl:variable name="rule_link">/cpsv-ap_validator/sparql-doc/rule-<xsl:value-of select="normalize-space($x)"/>.html</xsl:variable>
+	<xsl:variable name="rule_link">/adms-ap_validator/sparql-doc/rule-<xsl:value-of select="normalize-space($x)"/>.html</xsl:variable>
 	<a href="{$rule_link}"><xsl:value-of select="."/></a>
   </xsl:template>
 
@@ -146,13 +146,13 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 	<!-- non-datatyped literal value -->
 	<xsl:choose>
 		<xsl:when test=".='warning'">
-		  <img src="/cpsv-ap_validator/images/warning.png" width="15" height="15" alt="warning" /> warning
+		  <img src="/adms-ap_validator/images/warning.png" width="15" height="15" alt="warning" /> warning
 		</xsl:when>
 		<xsl:when test=".='error'">
-		  <img src="/cpsv-ap_validator/images/error.png" width="15" height="15" alt="error" /> error
+		  <img src="/adms-ap_validator/images/error.png" width="15" height="15" alt="error" /> error
 		</xsl:when>	
 		<xsl:when test=".='info'">
-		  <img src="/cpsv-ap_validator/images/info.png" width="15" height="15" alt="info" /> info
+		  <img src="/adms-ap_validator/images/info.png" width="15" height="15" alt="info" /> info
 		</xsl:when>			
 		<xsl:otherwise>
 			<xsl:value-of select="."/>
@@ -164,14 +164,14 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
   <xsl:template match="res:sparql">
     <html>
       <head>
-	    <title>CPSV-AP Validator: SPARQL Query Result</title>
-		<link rel="stylesheet" type="text/css" href="/cpsv-ap_validator/css/cpsv-ap/min/cpsv-ap_validator-results-min.css" />
+	    <title>ADMS-AP Validator: SPARQL Query Result</title>
+		<link rel="stylesheet" type="text/css" href="/adms-ap_validator/css/cpsv-ap/min/cpsv-ap_validator-results-min.css" />
 		<!-- DataTables CSS -->
-		<link rel="stylesheet" type="text/css" href="/cpsv-ap_validator/js/DataTables-1.10.7/media/css/jquery.dataTables.min.css" />
+		<link rel="stylesheet" type="text/css" href="/adms-ap_validator/js/DataTables-1.10.7/media/css/jquery.dataTables.min.css" />
       </head>
       <body>
 	  <header class="banner">
-	  <a id="logobanner" href="/cpsv-ap_validator/"><img src="/cpsv-ap_validator/images/CPSV-AP_logo.png" width="70" height="70" alt="CPSV-AP_logo" /><h1>CPSV-AP Validator: SPARQL Query Result</h1></a>
+	  <a id="logobanner" href="/adms-ap_validator/"><img src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/adms.png" width="70" height="70" alt="ADMS-AP_logo" /><h1>ADMS-AP Validator: SPARQL Query Result</h1></a>
 	  </header>
 	  <p id="description">The table below displays all detected anomalies (if any).</p>
 
@@ -191,9 +191,9 @@ URIs as hrefs in results : Bob DuCharme & Andy Seaborne
 
 	</xsl:choose>
 
-		<script type="text/javascript" charset="utf8" src="/cpsv-ap_validator/js/DataTables-1.10.7/media/js/jquery.js"></script>
-        <script type="text/javascript" src="/cpsv-ap_validator/js/js-cookie/js-cookie.js"></script>
-		<script type="text/javascript" charset="utf8" src="/cpsv-ap_validator/js/concat/cpsv-results.js"></script>
+		<script type="text/javascript" charset="utf8" src="/adms-ap_validator/js/DataTables-1.10.7/media/js/jquery.js"></script>
+        <script type="text/javascript" src="/adms-ap_validator/js/js-cookie/js-cookie.js"></script>
+		<script type="text/javascript" charset="utf8" src="/adms-ap_validator/js/concat/cpsv-results.js"></script>
       </body>
     </html>
   </xsl:template>
