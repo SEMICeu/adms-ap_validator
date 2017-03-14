@@ -19,7 +19,7 @@ PREFIX schema: <http://schema.org/>
 
 SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message (?s AS ?Subject) (?p AS ?Predicate) (?o AS ?Object)
 WHERE{
-GRAPH <@@@TOKEN-GRAPH@@@> {
+GRAPH <http://cpsv-ap/1489483991276> {
 
 # Rule_ID:1 dcat:Dataset - dcat:contactPoint MIN
   {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message ?s ?p
@@ -1158,7 +1158,7 @@ UNION
      ?s a spdx:Checksum.
      ?s spdx:checksumValue ?o.
      ?o ?p ?val.
-     FILTER(!EXISTS {?o a }).
+	 FILTER(!datatype(?o) = xsd:hexBinary)
      BIND ('spdx:Checksum' AS ?Class_Name).
      BIND (79 AS ?Rule_ID).
      BIND ('error' AS ?Rule_Severity).
