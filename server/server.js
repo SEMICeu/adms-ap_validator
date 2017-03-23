@@ -38,6 +38,8 @@ var fusekiport = process.argv[6];
  */
 var sparqlEndpoint = process.argv[7];
 
+var acceptFrom = process.argv[8];
+
 /**
  * BaseURL (for example http://localhost:3030) used to allow connections only from Fuseki
  */
@@ -118,7 +120,7 @@ function onRequest(req, res) {
                 res.end(err);
                 console.log("[LOG] There was a problem with the request " + queryData.url + "see: " + err);
             }).pipe(res);
-            res.setHeader('Access-Control-Allow-Origin', baseURL);
+            res.setHeader('Access-Control-Allow-Origin', acceptFrom);
         } else {
             res.end("No url found");
         }
@@ -151,7 +153,7 @@ function onRequest(req, res) {
                 console.log("[LOG] JSON saved to " + outputFilename);
             }
         });
-        res.setHeader('Access-Control-Allow-Origin', baseURL);
+        res.setHeader('Access-Control-Allow-Origin', acceptFrom);
         res.end("Session logged");
     } else {
         console.log("[LOG] Not a good request:" + req.url);
