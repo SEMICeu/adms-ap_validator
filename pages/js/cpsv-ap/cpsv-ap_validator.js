@@ -27,7 +27,7 @@ var servercookiedays = 1;
 /**
  * CPSV-AP server cookie name
  */
-var servercookiename = "cpsv-ap";
+var servercookiename = "adms-ap";
 /**
  * CPSV-AP query file
  */
