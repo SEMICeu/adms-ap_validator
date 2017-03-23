@@ -1,287 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF 
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:adms="http://www.w3.org/ns/adms#"
-	xmlns:dcat="http://www.w3.org/ns/dcat#"
-	xmlns:dct="http://purl.org/dc/terms/"
-	xmlns:eli="http://data.europa.eu/eli/ontology#"
-	xmlns:foaf="http://xmlns.com/foaf/0.1/"
-	xmlns:frbr="http://purl.org/vocab/frbr/core#"
-	xmlns:locn="http://www.w3.org/ns/locn#"
-	xmlns:org="http://www.w3.org/ns/org#"
-	xmlns:owl="http://www.w3.org/2002/07/owl#"
-	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:vann="http://purl.org/vocab/vann/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-	xmlns:cv="http://data.europa.eu/cv/" >
-
-<rdf:Description rdf:about="http://europa.eu/youreurope/businessOntology#start-grow">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/BusinessEvent"/>
-	<dct:title>Start &amp; grow</dct:title>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Starting+a+business"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://europa.eu/youreurope/businessOntology#vat-customs">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/BusinessEvent"/>
-	<dct:title>Taxes &amp; customs</dct:title>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Doing+business"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://europa.eu/youreurope/PublicService/European-Patent-National-Validation/ES">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/PublicService"/>
-	<dct:title>Validate a European patent when applying for a Spanish patent</dct:title>
-	<dct:description>You can apply for a national patent at a patent office in an EU country or for a European patent through the European Patent Office. However, a European patent needs to be validated by the national patent office in each country where protection is required. Depending on the country's law, you may have to provide translations or pay fees by a certain date.</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/SPA"/>
-	<dct:type rdf:resource="http://europa.eu/youreurope/businessOntology#start-grow/intellectual-property-rights/European-Patent-National-Validation"/>
-	<cv:hasCost rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-22"/>
-	<dct:spatial rdf:resource="http://publications.europa.eu/resource/authority/country/ESP"/>
-	<cv:physicallyAvailableAt rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#location/Spain"/>
-	<cv:hasFormalFramework rdf:resource="http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ma1.html"/>
-	<cv:follows rdf:resource="http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ar2.html"/>
-	<cv:hasChannel rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Telephone"/>
-	<cv:hasInput rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/proof-of-payment"/>
-	<cv:hasCompetentAuthority rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-	<cv:isPartOf rdf:resource="http://europa.eu/youreurope/businessOntology#start-grow"/>
-	<cv:hasCost rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-more-22"/>
-	<cv:hasChannel rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Homepage"/>
-	<cv:hasInput rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/patent-translation"/>
-	<cv:hasCost rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-22"/>
-	<cv:hasChannel rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Fax"/>
-	<cv:hasInput rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/tpede"/>
-	<cv:hasCost rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-more22"/>
-	<cv:hasChannel rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Email"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://europa.eu/youreurope/businessOntology#vat-customs/buy-sell/VAT-Return">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/PublicService"/>
-	<dct:title>VAT refund in Belgium</dct:title>
-	<dct:description>If you are charged VAT on business activities in an EU country where you are not established, you may be entitled to have it refunded by the authorities in that country.</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/FRA"/>
-	<cv:physicallyAvailableAt rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Location"/>
-	<cv:follows rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/9-1"/>
-	<cv:hasChannel rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Telephone"/>
-	<cv:hasInput rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2009:314:0050:0059:en:PDF#refund-claim"/>
-	<cv:hasCompetentAuthority rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"/>
-	<cv:isPartOf rdf:resource="http://europa.eu/youreurope/businessOntology#vat-customs"/>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/NLD"/>
-	<cv:hasChannel rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Fax"/>
-	<cv:follows rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/8"/>
-	<cv:hasChannel rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Email"/>
-	<cv:follows rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/11"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/proof-of-payment">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Input"/>
-	<dct:title>Proof of payment</dct:title>
-	<foaf:page rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/patent-translation">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Input"/>
-	<dct:title>Translation of the european patent</dct:title>
-	<foaf:page rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Input/tpede">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Input"/>
-	<dct:title>TPEDE form duly filled in</dct:title>
-	<foaf:page rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2009:314:0050:0059:en:PDF#refund-claim">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Input"/>
-	<dct:title>Refund claim</dct:title>
-	<dct:description>Claim to applicate the VAT refund. The claim is only considered submitted when the information in Articles 8, 9, and 11 are complete</dct:description>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Telephone">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Telephone"/>
-	<cv:ownedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Homepage">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Homepage"/>
-	<cv:ownedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Fax">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Fax"/>
-	<cv:ownedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Channel/Email">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/E-mail"/>
-	<cv:ownedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Telephone">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Telephone"/>
-	<cv:ownedBy rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Fax">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/Fax"/>
-	<cv:ownedBy rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#Channel/Email">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Channel"/>
-	<dct:type rdf:resource="http://127.0.0.1:3333/E-mail"/>
-	<cv:ownedBy rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-22">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Cost"/>
-	<cv:isDefinedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-	<cv:monetary_value rdf:datatype="http://www.w3.org/2001/XMLSchema#double">324.14</cv:monetary_value>
-	<cv:currency rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
-	<dct:description>Fee to pay when the traduction is only delivered in paper form, until 22 pages</dct:description>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/paper-more-22">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Cost"/>
-	<cv:isDefinedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-	<cv:monetary_value rdf:datatype="http://www.w3.org/2001/XMLSchema#double">13.03</cv:monetary_value>
-	<cv:currency rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
-	<dct:description>Fee to pay per page when the traduction is only delivered in paper form, from the 23th page</dct:description>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-22">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Cost"/>
-	<cv:isDefinedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-	<cv:monetary_value rdf:datatype="http://www.w3.org/2001/XMLSchema#double">275.52</cv:monetary_value>
-	<cv:currency rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
-	<dct:description>Fee to pay when the traduction is delivered online, in paper form and in CD, until 22 pages</dct:description>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#cost/digital-more22">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Cost"/>
-	<cv:isDefinedBy rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html"/>
-	<cv:monetary_value rdf:datatype="http://www.w3.org/2001/XMLSchema#double">11.08</cv:monetary_value>
-	<cv:currency rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
-	<dct:description>Fee to pay when the traduction is delivered online, in paper form and in CD, from the 23th page</dct:description>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ar2.html">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Rule"/>
-	<cv:implements rdf:resource="http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ma1.html"/>
-	<dct:title>Article 2 - European Patent</dct:title>
-	<dct:description>Under Article 2(2) EPC, a European patent shall, in each of the contracting states for which it is granted, have the effect of and be subject to the same conditions as a national patent granted by that state, unless otherwise provided in the EPC.</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/9-1">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Rule"/>
-	<cv:implements rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"/>
-	<dct:title>Article 9 (1)</dct:title>
-	<dct:description>When submitting a refund claim, you must enter certain standard codes to describe the type of goods/services you paid the VAT on</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/9-2">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Rule"/>
-	<cv:implements rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"/>
-	<dct:title>Article 9 (2)</dct:title>
-	<dct:description>Some Member States also require you to use extra sub-codes for each type of good/service. Belgium is one of them</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/8">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Rule"/>
-	<cv:implements rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"/>
-	<dct:title>Article 8</dct:title>
-	<dct:description>Information specified that the application shall contain.</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF#Article/11">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/Rule"/>
-	<cv:implements rdf:resource="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF"/>
-	<dct:title>Article 11</dct:title>
-	<dct:description>The application should provide a description of the applicant's business activity</dct:description>
-	<dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.epo.org/law-practice/legal-texts/html/epc/2013/e/ma1.html">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/FormalFramework"/>
-	<eli:id_local>European Patent Convention</eli:id_local>
-	<dct:description>Convention on the Grant of European Patents
-(European Patent Convention)
-of 5 October 1973 
-as revised by the Act revising Article 63 EPC of 17 December 1991 and the Act revising the EPC of 29 November 2000</dct:description>
-	<eli:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2008:044:0023:0028:en:PDF">
-	<rdf:type rdf:resource="http://data.europa.eu/cv/FormalFramework"/>
-	<eli:id_local>Directive 2008/9/EC</eli:id_local>
-	<dct:description>COUNCIL DIRECTIVE 2008/9/EC
-of 12 February 2008
-laying down detailed rules for the refund of value added tax, provided for in Directive 2006/112/EC, to taxable persons not established in the Member State of refund but established in another Member State</dct:description>
-	<eli:language rdf:resource="http://publications.europa.eu/resource/authority/language/ENG"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html">
-	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
-	<cv:hasRole rdf:resource="http://europa.eu/youreurope/businessOntology#start-grow/intellectual-property-rights/European-Patent-National-Validation"/>
-	<dct:title>Spanish patent and trademark office </dct:title>
-	<address xmlns="http://www.w3.org/ns/locn#" rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Address/OEPM"/>
-	<rdf:type rdf:resource="http://www.w3.org/ns/org#FormalOrganization"/>
-	<rdf:type rdf:resource="http://data.europa.eu/cv/PublicOrganisation"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#MS/Belgium">
-	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
-	<cv:hasRole rdf:resource="http://europa.eu/youreurope/businessOntology#vat-customs/buy-sell/VAT-Return"/>
-	<dct:title>Bureau Central de TVA</dct:title>
-	<address xmlns="http://www.w3.org/ns/locn#" rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Address"/>
-	<rdf:type rdf:resource="http://www.w3.org/ns/org#FormalOrganization"/>
-	<rdf:type rdf:resource="http://data.europa.eu/cv/PublicOrganisation"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://publications.europa.eu/resource/authority/country/ESP">
-	<rdf:type rdf:resource="http://purl.org/dc/terms/Location"/>
-	<locn:GeographicName>Spain</locn:GeographicName>
-	<locn:address rdf:resource="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Address/OEPM"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#Address/OEPM">
-	<rdf:type rdf:resource="http://www.w3.org/ns/locn#Address"/>
-	<fullAddress xmlns="http://www.w3.org/ns/locn#">Paseo de la Castellana, n° 75, 28071 Madrid</fullAddress>
-	<addressArea xmlns="http://www.w3.org/ns/locn#">Madrid</addressArea>
-	<adminUnitL1 xmlns="http://www.w3.org/ns/locn#">http://publications.europa.eu/resource/authority/country/ESP</adminUnitL1>
-	<adminUnitL2 xmlns="http://www.w3.org/ns/locn#">Madrid</adminUnitL2>
-	<locatorDesignator xmlns="http://www.w3.org/ns/locn#">75</locatorDesignator>
-	<postCode xmlns="http://www.w3.org/ns/locn#">28071</postCode>
-	<postName xmlns="http://www.w3.org/ns/locn#">Madrid</postName>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Address">
-	<rdf:type rdf:resource="http://www.w3.org/ns/locn#Address"/>
-	<fullAddress xmlns="http://www.w3.org/ns/locn#">Bvd Jardin botanique 50 (étage 18 R boîte 3626) 1000 Bruxelles - BELGIQUE </fullAddress>
-	<adminUnitL1 xmlns="http://www.w3.org/ns/locn#">http://publications.europa.eu/resource/authority/country/BEL</adminUnitL1>
-	<adminUnitL2 xmlns="http://www.w3.org/ns/locn#">Brussels</adminUnitL2>
-	<locatorDesignator xmlns="http://www.w3.org/ns/locn#">50</locatorDesignator>
-	<postCode xmlns="http://www.w3.org/ns/locn#">1000</postCode>
-	<postName xmlns="http://www.w3.org/ns/locn#">Brussels</postName>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Location">
-	<rdf:type rdf:resource="http://purl.org/dc/terms/Location"/>
-	<address xmlns="http://www.w3.org/ns/locn#" rdf:resource="http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/traders/vat_refunds/refund_contact_details_table_en.pdf#country/Belgium/Address"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.oepm.es/cs/OEPMSite/contenidos/Folletos/08-la-patente-europea.html#location/Spain">
-	<rdf:type rdf:resource="http://purl.org/dc/terms/Location"/>
-</rdf:Description>
-
+<!--Generated using EIRA_Archi_xml-to-ADMS_rdf.xslt.--><!--EIRA_v0.9.0_beta--><rdf:RDF xmlns:dct="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:schema="http://schema.org/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:archimate="http://www.archimatetool.com/archimate"
+         xmlns:spdx="http://spdx.org/rdf/terms#"
+         xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+         xmlns:v="http://www.w3.org/2006/vcard/ns#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:adms="http://www.w3.org/ns/adms#"
+         xmlns:ju="https://joinup.ec.europa.eu/"
+         xmlns:dcat="http://www.w3.org/ns/dcat#"
+         xmlns:functx="http://www.functx.com">
+   <rdf:Description rdf:about="http://joinup.ec.europa.eu/unique_identifier">
+      <rdf:type rdf:resource="dcat:Dataset"/>
+      <dct:title xml:lang="en">EIRA_v0.9.0_beta</dct:title>
+      <dct:description xml:lang="en">This Archi file provides the ArchiMate model of the European Interoperability Reference Architecture (EIRA). The EIRA has been developed in the context of Action 2.1 of the Interoperability Solutions for European Public Administrations (ISA) Programme. The EIRA is a reference architecture focused on the interoperability of digital public services. It is composed of the most important architecture building blocks needed to promote cross-border and cross-sector interactions between public administrations. It is based on the Service Oriented Architecture style and uses ArchiMate as a modelling notation. The EIRA implements the European Interoperability Framework (EIF) . &#xD;
+&#xD;
+The latest release of the EIRA is available on Joinup: https://joinup.ec.europa.eu/asset/eia/description</dct:description>
+      <composedOf rdf:about="http://joinup.ec.europa.eu/ABB165"/>
+      <composedOf rdf:about="http://data.europa.eu/eli/dir/2006/123/oj"/>
+      <composedOf rdf:about="http://data.europa.eu/URI/CPSVAP"/>
+   </rdf:Description>
+   <rdf:Description rdf:about="http://joinup.ec.europa.eu/ABB165">
+      <rdf:type rdf:resource="dcat:Dataset"/>
+      <dct:type rdf:resource="http://data.europa.eu/eira/LegislationCatalogue"/>
+      <dct:title xml:lang="en">Legislation Catalogue Solution BB</dct:title>
+      <dct:description xml:lang="en">A Legislation Catalogue is a set of legal documents.</dct:description>
+      <dcat:keyword>legislation</dcat:keyword>
+      <dct:publisher rdf:resource="Unknown Publisher" />
+      <dct:publisher rdf:resource="Unknown Publisher3" />
+      <dcat:landingPage rdf:resource="https://joinup.ec.europa.eu/example/LegislationCatalogue" />
+      <dct:modified>2015-12-15</dct:modified>
+      <dcat:distribution rdf:resource="https://joinup.ec.europa.eu/distribution" />
+      <dcat:distribution rdf:resource="https://joinup.ec.europa.eu/distribution2" />
+	</rdf:Description>
+   <rdf:Description rdf:about="Unknown Publisher">
+      <rdf:type rdf:resource="foaf:Agent"/>
+      <foaf:name/>
+   </rdf:Description>
+   <rdf:Description rdf:about="Unknown Publisher3">
+      <rdf:type rdf:resource="foaf:Agent"/>
+      <foaf:name/>
+   </rdf:Description>
+   <rdf:Description rdf:about="http://data.europa.eu/eli/dir/2006/123/oj">
+      <rdf:type rdf:resource="dcat:Dataset"/>
+      <dct:type rdf:resource="http://data.europa.eu/eira/PublicPolicy"/>
+      <dct:type rdf:resource="http://data.europa.eu/eira/BindingInstrument"/>
+      <dct:title xml:lang="en">Services Directory</dct:title>
+      <dct:description xml:lang="en">The objective of the Services Directive is to realise the full potential of services markets in Europe by removing legal and administrative barriers to trade. The simplification measures introduced by the Directive have increased transparency and made it easier for businesses and consumers to provide or use services in the Single Market. The Directive was adopted in 2006 and implemented by all EU countries in 2009. The European Commission is now working with EU countries to further improve the Single Market for services.</dct:description>
+      <dcat:contactPoint rdf:resource="http://data.europa.eu/contact/mrx" />
+      <dct:publisher rdf:resource="http://data.europa.eu/publisher/EP" />
+      <dcat:keyword>public services</dcat:keyword>
+      <dcat:keyword>european union</dcat:keyword>
+      <dcat:landingPage rdf:resource="http://ec.europa.eu/growth/single-market/services/services-directive/index_en.htm" />
+      <dct:relation rdf:resource="http://data.europa.eu/URI/CPSVAP"/>
+	  </rdf:Description>
+   <rdf:Description rdf:about="http://data.europa.eu/publisher/EP">
+      <rdf:type rdf:resource="foaf:Agent"/>
+      <foaf:name>European Parliament</foaf:name>
+   </rdf:Description>
+   <rdf:Description rdf:about="http://data.europa.eu/contact/mrx">
+      <rdf:type rdf:resource="v:Kind"/>
+      <v:fn>Mr X</v:fn>
+      <v:hasEmail>mrx@host.com</v:hasEmail>
+   </rdf:Description>
+   <rdf:Description rdf:about="http://data.europa.eu/URI/CPSVAP">
+      <rdf:type rdf:resource="dcat:Dataset"/>
+      <dct:type rdf:resource="http://data.europa.eu/eira/CoreDataModel"/>
+      <dct:title xml:lang="en">CPSV-AP</dct:title>
+      <dct:description xml:lang="en">The CPSV-AP has been defined as an Application Profile of the ISA² Core Public Service Vocabulary (CPSV). An Application Profile is a specification that re-uses terms from one or more base standards, adding more specificity by identifying mandatory, recommended and optional elements to be used for a particular application, as well as recommendations for controlled vocabularies to be used.</dct:description>
+      <dcat:contactPoint rdf:resource="http://data.europa.eu/contact/mrx" />
+      <dct:publisher rdf:resource="http://data.europa.eu/publisher/ISA" />
+      <dcat:keyword>services directory</dcat:keyword>
+      <dcat:keyword>businesses</dcat:keyword>
+      <dcat:landingPage rdf:resource="https://joinup.ec.europa.eu/asset/cpsv-ap/asset_release/core-public-service-vocabulary-application-profile-v100" />
+      <dcat:distribution rdf:resource="https://joinup.ec.europa.eu/system/files/project/d02.02_-_definition_and_development_of_a_data_model_for_description_of_the_services_related_to_kbe-v1.05.docx" />
+	</rdf:Description>
+   <rdf:Description rdf:about="http://data.europa.eu/publisher/ISA">
+      <rdf:type rdf:resource="foaf:Agent"/>
+      <foaf:name>ISA</foaf:name>
+   </rdf:Description>
+   <rdf:Description rdf:about="http://data.europa.eu/contact/mrx">
+      <rdf:type rdf:resource="v:Kind"/>
+      <v:fn>Mr X</v:fn>
+      <v:hasEmail>mrx@host.com</v:hasEmail>
+   </rdf:Description>
 </rdf:RDF>
