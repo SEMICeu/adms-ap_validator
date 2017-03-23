@@ -682,7 +682,17 @@ $(document).ready(function () {
 
     editortab3 = CodeMirror.fromTextArea(document.getElementById("tab3validationquery"), {
         mode: "turtle",
-        lineNumbers: true
+        lineNumbers: true,
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) {
+                    cm.setOption("fullScreen", false);
+                }
+            }
+        }
     });
 
     // tabs creation needs to be after codemirror otherwise the gutter (rulers) is flat
