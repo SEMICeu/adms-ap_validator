@@ -639,7 +639,7 @@ function toggle(taboption, editortab) {
 $(document).ready(function () {
 
     var defaultEndpoint = getBaseURL() + "/" + sparqlEndpoint,
-        graph = encodeURI("http://cpsv-ap/" + new Date().getTime()), //encodeURI('http://joinup.ec.europa.eu/cesar/adms#graph');
+        graph = encodeURI("http://" + servercookiename + "/" + new Date().getTime()), //encodeURI('http://joinup.ec.europa.eu/cesar/adms#graph');
         pending;
 
     $("#tab1endpoint").val(defaultEndpoint);
