@@ -19,7 +19,7 @@ var serverhost = "52.50.205.146";
 /**
  * CPSV-AP server port
  */
-var serverport = "3000";
+var serverport = "3001";
 /**
  * CPSV-AP server cookie days
  */
