@@ -59,11 +59,11 @@ var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
   *@param {string} endpoint -  SPARQL endpoint to be contacted.
  */
 function postCode(query, endpoint) {
-    var post_data = 'update=' + encodeURIComponent(query),
+    var post_data = 'query=' + encodeURIComponent(query),
         post_options = {
             host: fusekihost,
             port: fusekiport,
-            path: endpoint + '/update',
+            path: endpoint,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
