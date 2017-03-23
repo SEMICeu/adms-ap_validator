@@ -1482,7 +1482,7 @@ UNION
   {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
    WHERE {
      FILTER(!EXISTS {?s a dcat:Dataset}).
-     BIND (dcat:Dataset AS ?Class_Name).
+     BIND ('dcat:Dataset' AS ?Class_Name).
      BIND (100 AS ?Rule_ID).
      BIND ('error' AS ?Rule_Severity).
      BIND ('dcat:Dataset does not exist.' AS ?Rule_Description).
@@ -1495,7 +1495,7 @@ UNION
   {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
    WHERE {
      FILTER(!EXISTS {?s a skos:Concept}).
-     BIND (skos:Concept AS ?Class_Name).
+     BIND ('skos:Concept' AS ?Class_Name).
      BIND (101 AS ?Rule_ID).
      BIND ('error' AS ?Rule_Severity).
      BIND ('skos:Concept does not exist.' AS ?Rule_Description).
@@ -1508,7 +1508,7 @@ UNION
   {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
    WHERE {
      FILTER(!EXISTS {?s a v:Kind}).
-     BIND (v:Kind AS ?Class_Name).
+     BIND ('v:Kind' AS ?Class_Name).
      BIND (102 AS ?Rule_ID).
      BIND ('error' AS ?Rule_Severity).
      BIND ('v:Kind does not exist.' AS ?Rule_Description).
@@ -1521,7 +1521,7 @@ UNION
   {SELECT ?Class_Name ?Rule_ID ?Rule_Severity ?Rule_Description ?Message
    WHERE {
      FILTER(!EXISTS {?s a foaf:Agent}).
-     BIND (foaf:Agent AS ?Class_Name).
+     BIND ('foaf:Agent' AS ?Class_Name).
      BIND (103 AS ?Rule_ID).
      BIND ('error' AS ?Rule_Severity).
      BIND ('foaf:Agent does not exist.' AS ?Rule_Description).
